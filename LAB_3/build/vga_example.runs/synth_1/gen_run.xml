@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1616578316">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1616588878">
   <File Type="PA-TCL" Name="vga_example.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="vga_example_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="vga_example_reports.tcl"/>
@@ -54,6 +54,12 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../rtl/MouseCtl.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../rtl/MouseDisplay.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>

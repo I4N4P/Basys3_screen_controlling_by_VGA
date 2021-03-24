@@ -1,5 +1,6 @@
 // File: vga_example.v
-// This is the top level design for EE178 Lab #2.
+// This is the top level design for Lab #3 that contains
+// all modules which are responsible for displaying data on screen  .
 
 // The `timescale directive specifies what the
 // simulation time units are (1 ns here) and what
@@ -34,11 +35,9 @@ module vga_example (
   wire locked;
   wire reset;
 
-  wire [11:0]xpos;
-  wire [11:0]ypos;
+  wire [11:0]xpos,ypos,xpos_mem,ypos_mem;
 
-  wire [11:0]xpos_mem;
-  wire [11:0]ypos_mem;
+  wire [3:0] red_out,green_out,blue_out;
 
 /*  wire clk_in;
   wire locked;
@@ -122,20 +121,43 @@ module vga_example (
   position_memory my_position_memory(
     .pclk(pclk),
     .rst(reset),
+
     .xpos_in(xpos),
     .ypos_in(ypos),
     .xpos_out(xpos_mem),
     .ypos_out(ypos_mem)
   
   );
-
-
-  // Instantiate the vga_timing module
-
-  wire [10:0] vcount, hcount,vcount_out_b, hcount_out_b,vcount_out, hcount_out;
+  
+  wire [11:0] vcount, hcount,vcount_out_b, hcount_out_b,vcount_out, hcount_out;  // here is the change of the size of variable in order to mould with MouseDisplay
   wire vsync, hsync,vsync_out_b, hsync_out_b, vsync_out, hsync_out;
   wire vblnk, hblnk,vblnk_out_b, hblnk_out_b,vblnk_out, hblnk_out;
   wire [11:0] rgb_out_b,rgb_out;
+
+  wire blank;
+
+  MouseDisplay my_MouseDisplay(
+    .pixel_clk(pclk),
+    .xpos(xpos_mem),
+    .ypos(ypos_mem),
+
+    .vcount(vcount_out),
+    .blank(blank),
+    .hcount(hcount_out),
+
+    .red_in(rgb_out[11:8]),
+    .green_in(rgb_out[7:4]),
+    .blue_in(rgb_out[3:0]),
+
+    .red_out(red_out),
+    .green_out(green_out),
+    .blue_out(blue_out)
+
+  ); 
+
+  // Instantiate the vga_timing module
+
+  
 
   vga_timing my_timing (
     .pclk(pclk),
@@ -197,11 +219,10 @@ module vga_example (
       // Just pass these through.
       hs <= hsync_out;
       vs <= vsync_out;
-      r  <= rgb_out[11:8];
-      g  <= rgb_out[7:4];
-      b  <= rgb_out[3:0];
+      r  <= red_out;
+      g  <= green_out;
+      b  <= blue_out;
     end
-  //always @(posedge locked) begin
-  //  rst <= 1'b1;
-  //end
+
+    assign blank=vblnk_out||hblnk_out;
 endmodule

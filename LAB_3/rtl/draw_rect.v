@@ -17,18 +17,18 @@ module draw_rect (
   input   wire[11:0] xpos,
   input   wire[11:0] ypos,
 
-  input   wire [10:0] vcount_in,
+  input   wire [11:0] vcount_in,
   input   wire vsync_in, 
   input   wire vblnk_in, 
-  input   wire [10:0] hcount_in,
+  input   wire [11:0] hcount_in,
   input   wire hsync_in, 
   input   wire hblnk_in, 
   input   wire [11:0] rgb_in,
 
-  output  reg [10:0] vcount_out,
+  output  reg [11:0] vcount_out,
   output  reg vsync_out, 
   output  reg vblnk_out, 
-  output  reg [10:0] hcount_out,
+  output  reg [11:0] hcount_out,
   output  reg hsync_out, 
   output  reg hblnk_out, 
   output  reg [11:0] rgb_out
@@ -43,8 +43,8 @@ module draw_rect (
   localparam RECT_COLOR = 12'h4_4_4;;
   
   reg [11:0] rgb_nxt;
-  reg [11:0] counter;
-  reg [11:0] counter_nxt;
+  //reg [11:0] counter;
+  //reg [11:0] counter_nxt;
 
   // Synchronical logic
   
@@ -53,14 +53,14 @@ module draw_rect (
     // pass these through if rst not activ then put 0 on the output.
     if (rst) 
       begin
-        vcount_out <= 11'b0;
-        hcount_out <= 11'b0;
+        vcount_out <= 12'b0;
+        hcount_out <= 12'b0;
         vsync_out  <= 1'b0;
         vblnk_out  <= 1'b0; 
         hsync_out  <= 1'b0;
         hblnk_out  <= 1'b0; 
         rgb_out    <= 12'h0_0_0;
-        counter_nxt <= counter +1;
+        //counter_nxt <= counter +1;
       end
     else 
       begin
@@ -71,16 +71,16 @@ module draw_rect (
         hsync_out  <= hsync_in;
         hblnk_out  <= hblnk_in;
         rgb_out    <= rgb_nxt;
-        counter    <= counter_nxt;
+        //counter    <= counter_nxt;
       end
  end
   // Combinational logic
 always @*
   begin
-    if (hcount_in>=(xpos+counter) && vcount_in>=ypos 
-        && hcount_in<=(RECT_WIDTH+xpos+counter) && vcount_in<=RECT_HEIGHT+ypos
+    if (hcount_in>=(xpos) && vcount_in>=ypos 
+        && hcount_in<=(RECT_WIDTH+xpos) && vcount_in<=RECT_HEIGHT+ypos
         && hcount_in<MAX_X_POS && vcount_in<MAX_Y_POS
-    )  
+    )  //+counter
 
         rgb_nxt=RECT_COLOR;
     else

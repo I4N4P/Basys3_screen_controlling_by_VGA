@@ -1,5 +1,6 @@
 // File: vga_timing.v
-// This is the vga timing design for EE178 Lab #2.
+// This is the vga timing design for Lab #3 generats
+// signals that control the screen .
 
 // The `timescale directive specifies what the
 // simulation time units are (1 ns here) and what
@@ -13,10 +14,10 @@ module vga_timing (
   input  wire pclk,
   input  wire rst,
 
-  output wire [10:0] vcount,
+  output wire [11:0] vcount,
   output wire vsync, 
   output wire vblnk, 
-  output wire [10:0] hcount,
+  output wire [11:0] hcount,
   output wire hsync,  
   output wire hblnk  
   );
@@ -30,15 +31,15 @@ module vga_timing (
   localparam HOR_SYNC_TIME = 128;
   localparam VER_SYNC_TIME = 4;
 
-  reg [10:0] horizontal_counter = 11'b0;
-  reg [10:0] vertical_counter= 11'b0;
+  reg [11:0] horizontal_counter = 12'b0;
+  reg [11:0] vertical_counter= 12'b0;
   reg horizontal_sync = 1'b0;
   reg horizontal_blank = 1'b0;
   reg vertical_sync = 1'b0;
   reg vertical_blank = 1'b0;
 
-  reg [10:0] horizontal_counter_nxt;
-  reg [10:0] vertical_counter_nxt;
+  reg [11:0] horizontal_counter_nxt;
+  reg [11:0] vertical_counter_nxt;
   reg horizontal_sync_nxt ; 
   reg horizontal_blank_nxt ;
   reg vertical_sync_nxt ;
@@ -57,8 +58,8 @@ always @(posedge pclk)
           vertical_blank   <=  1'b0;
           horizontal_sync  <=  1'b0;
           vertical_sync    <=  1'b0;
-          vertical_counter <=  10'b0;
-          horizontal_counter<= 10'b0;
+          vertical_counter <=  12'b0;
+          horizontal_counter<= 12'b0;
       end
     else
       begin

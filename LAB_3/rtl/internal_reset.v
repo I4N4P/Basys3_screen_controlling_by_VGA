@@ -1,5 +1,5 @@
 // File: internal_reset.v
-// This is the top level design for EE178 Lab #3.
+// This is the module design for Lab #3.
 
 // The `timescale directive specifies what the
 // simulation time units are (1 ns here) and what

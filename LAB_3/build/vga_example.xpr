@@ -6,7 +6,7 @@
 <Project Version="7" Minor="32" Path="C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/build/vga_example.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="88d938fc0947497893d388b209f36cf4"/>
+    <Option Name="Id" Val="241aa23915cf4597b633ef80cd8fb8c0"/>
     <Option Name="Part" Val="xc7a35tcpg236-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -97,6 +97,12 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../rtl/MouseCtl.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../rtl/MouseDisplay.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>

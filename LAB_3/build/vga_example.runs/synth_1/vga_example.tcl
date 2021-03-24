@@ -37,6 +37,7 @@ read_verilog -library xil_defaultlib {
 }
 read_vhdl -library xil_defaultlib {
   C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/MouseCtl.vhd
+  C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/MouseDisplay.vhd
   C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/Ps2Interface.vhd
 }
 # Mark all dcp files as not used in implementation to prevent them from being

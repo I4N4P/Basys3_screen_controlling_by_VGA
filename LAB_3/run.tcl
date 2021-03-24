@@ -42,6 +42,7 @@ read_xdc {
 read_vhdl {
     rtl/MouseCtl.vhd
     rtl/Ps2Interface.vhd
+    rtl/MouseDisplay.vhd
 }
 read_verilog {
     rtl/vga_example.v
