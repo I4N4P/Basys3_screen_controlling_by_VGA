@@ -14,6 +14,9 @@ module draw_rect (
   input   wire pclk,
   input   wire rst,
 
+  input   wire[11:0] xpos,
+  input   wire[11:0] ypos,
+
   input   wire [10:0] vcount_in,
   input   wire vsync_in, 
   input   wire vblnk_in, 
@@ -33,10 +36,10 @@ module draw_rect (
 
   // This are the parameters of the rectangle.
 
-  localparam RECT_X_POSITION = 30;
-  localparam RECT_Y_POSITION = 30;
   localparam RECT_HEIGHT = 100;
   localparam RECT_WIDTH = 200;
+  localparam MAX_X_POS = 800;
+  localparam MAX_Y_POS = 600;
   localparam RECT_COLOR = 12'h4_4_4;;
   
   reg [11:0] rgb_nxt;
@@ -70,8 +73,10 @@ module draw_rect (
   // Combinational logic
 always @*
   begin
-    if (hcount_in>=RECT_X_POSITION && vcount_in>=RECT_Y_POSITION 
-        && hcount_in<=RECT_WIDTH+RECT_X_POSITION && vcount_in<=RECT_HEIGHT+RECT_Y_POSITION) 
+    if (hcount_in>=xpos && vcount_in>=ypos 
+        && hcount_in<=RECT_WIDTH+xpos && vcount_in<=RECT_HEIGHT+ypos
+        && hcount_in<MAX_X_POS && vcount_in<MAX_Y_POS
+    )  
 
         rgb_nxt=RECT_COLOR;
     else

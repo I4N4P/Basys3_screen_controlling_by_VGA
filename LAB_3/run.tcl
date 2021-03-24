@@ -39,6 +39,10 @@ read_xdc {
     constraints/vga_example.xdc
 }
 
+read_vhdl {
+    rtl/MouseCtl.vhd
+    rtl/Ps2Interface.vhd
+}
 read_verilog {
     rtl/vga_example.v
     rtl/vga_timing.v
@@ -47,6 +51,7 @@ read_verilog {
     rtl/clk_generator.v
     rtl/internal_reset.v
 }
+
 
 add_files -fileset sim_1 {
     sim/testbench.v
@@ -61,6 +66,7 @@ update_compile_order -fileset sim_1
 if {[lindex $argv 0] == "simulation"} {
     launch_simulation
     start_gui
+    run all
 } else {
     launch_runs synth_1 -jobs 8
     wait_on_run synth_1

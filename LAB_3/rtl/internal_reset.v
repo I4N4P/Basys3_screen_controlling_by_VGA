@@ -16,13 +16,38 @@ module internal_reset (
     output  reg  reset_out
     );
 
-    always @(negedge pclk or negedge locked)
+    reg  reset_out_nxt;
+
+    reg [10:0] counter=11'b0;
+    reg [10:0] counter_nxt;
+
+    always @(posedge pclk)
         begin
-            if(!locked)
-                reset_out <= 1'b1;
-            else
-                reset_out <= 1'b0;
+            reset_out <=reset_out_nxt;
+            counter <= counter_nxt;
         end
 
+    always @(negedge locked)
+        begin
+            counter <=11'b0;
+            reset_out <=1'b1;
+            
+        end
+
+
+    always @*
+        begin
+            if(counter > 100)
+                begin
+                    reset_out_nxt =1'b0;
+                    counter_nxt=counter;
+                end
+            else 
+                begin
+                    reset_out_nxt =reset_out;
+                    counter_nxt=counter+1;
+                end
+
+        end
 endmodule
 
