@@ -36,6 +36,10 @@ module vga_example (
 
   wire [11:0]xpos;
   wire [11:0]ypos;
+
+  wire [11:0]xpos_mem;
+  wire [11:0]ypos_mem;
+
 /*  wire clk_in;
   wire locked;
   wire clk_fb;
@@ -84,7 +88,7 @@ module vga_example (
     .clk(clk),
     .clk100MHz(clk100MHz),
     .clk40MHz(pclk),
-    //.reset(rst),
+    .reset(rst),
     .locked(locked)
   );
   // Mirrors pclk on a pin for use by the testbench;
@@ -102,8 +106,8 @@ module vga_example (
 
   internal_reset my_internal_reset(
     .pclk(pclk),
-    .locked(locked)
-    //.reset_out(reset)
+    .locked(locked),
+    .reset_out(reset)
   );
   MouseCtl my_MouseCtl(
     .clk(clk100MHz),
@@ -115,7 +119,17 @@ module vga_example (
     .ypos(ypos)
   );
 
+  position_memory my_position_memory(
+    .pclk(pclk),
+    .rst(reset),
+    .xpos_in(xpos),
+    .ypos_in(ypos),
+    .xpos_out(xpos_mem),
+    .ypos_out(ypos_mem)
   
+  );
+
+
   // Instantiate the vga_timing module
 
   wire [10:0] vcount, hcount,vcount_out_b, hcount_out_b,vcount_out, hcount_out;
@@ -125,7 +139,7 @@ module vga_example (
 
   vga_timing my_timing (
     .pclk(pclk),
-    //.rst(reset),
+    .rst(reset),
     
     .vcount(vcount),
     .vsync(vsync),
@@ -137,7 +151,7 @@ module vga_example (
 
   draw_background my_draw_background (
     .pclk(pclk),
-    //.rst(reset),
+    .rst(reset),
 
     .vcount_in(vcount),
     .vsync_in(vsync),
@@ -156,10 +170,10 @@ module vga_example (
   );
   draw_rect my_draw_rect (
     .pclk(pclk),
-    //.rst(reset),
+    .rst(reset),
 
-    .xpos(xpos),
-    .ypos(ypos),
+    .xpos(xpos_mem),
+    .ypos(ypos_mem),
 
     .vcount_in(vcount_out_b),
     .vsync_in(vsync_out_b),

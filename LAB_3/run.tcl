@@ -50,6 +50,7 @@ read_verilog {
     rtl/draw_rect.v
     rtl/clk_generator.v
     rtl/internal_reset.v
+    rtl/position_memory.v
 }
 
 

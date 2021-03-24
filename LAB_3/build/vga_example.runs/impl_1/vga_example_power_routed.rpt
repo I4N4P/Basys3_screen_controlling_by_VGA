@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date             : Wed Mar 24 00:45:58 2021
+| Date             : Wed Mar 24 10:34:10 2021
 | Host             : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command          : report_power -file vga_example_power_routed.rpt -pb vga_example_power_summary_routed.pb -rpx vga_example_power_routed.rpx
 | Design           : vga_example
@@ -36,8 +36,8 @@ Table of Contents
 | Dynamic (W)              | 0.118        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
-| Max Ambient (C)          | 84.1         |
-| Junction Temperature (C) | 25.9         |
+| Max Ambient (C)          | 84.0         |
+| Junction Temperature (C) | 26.0         |
 | Confidence Level         | Medium       |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -49,23 +49,22 @@ Table of Contents
 1.1 On-Chip Components
 ----------------------
 
-+-------------------------+-----------+----------+-----------+-----------------+
-| On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
-+-------------------------+-----------+----------+-----------+-----------------+
-| Clocks                  |     0.003 |        6 |       --- |             --- |
-| Slice Logic             |     0.002 |     1030 |       --- |             --- |
-|   LUT as Logic          |     0.002 |      499 |     20800 |            2.40 |
-|   CARRY4                |    <0.001 |       59 |      8150 |            0.72 |
-|   Register              |    <0.001 |      317 |     41600 |            0.76 |
-|   F7/F8 Muxes           |    <0.001 |       12 |     32600 |            0.04 |
-|   LUT as Shift Register |    <0.001 |        2 |      9600 |            0.02 |
-|   Others                |     0.000 |       17 |       --- |             --- |
-| Signals                 |     0.002 |      735 |       --- |             --- |
-| MMCM                    |     0.106 |        1 |         5 |           20.00 |
-| I/O                     |     0.005 |       19 |       106 |           17.92 |
-| Static Power            |     0.072 |          |           |                 |
-| Total                   |     0.190 |          |           |                 |
-+-------------------------+-----------+----------+-----------+-----------------+
++----------------+-----------+----------+-----------+-----------------+
+| On-Chip        | Power (W) | Used     | Available | Utilization (%) |
++----------------+-----------+----------+-----------+-----------------+
+| Clocks         |     0.004 |        6 |       --- |             --- |
+| Slice Logic    |     0.002 |     1123 |       --- |             --- |
+|   LUT as Logic |     0.002 |      520 |     20800 |            2.50 |
+|   CARRY4       |    <0.001 |       66 |      8150 |            0.81 |
+|   Register     |    <0.001 |      371 |     41600 |            0.89 |
+|   F7/F8 Muxes  |    <0.001 |       12 |     32600 |            0.04 |
+|   Others       |     0.000 |       19 |       --- |             --- |
+| Signals        |     0.001 |      811 |       --- |             --- |
+| MMCM           |     0.106 |        1 |         5 |           20.00 |
+| I/O            |     0.005 |       19 |       106 |           17.92 |
+| Static Power   |     0.072 |          |           |                 |
+| Total          |     0.190 |          |           |                 |
++----------------+-----------+----------+-----------+-----------------+
 
 
 1.2 Power Supply Summary
@@ -74,7 +73,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.017 |       0.007 |      0.010 |
+| Vccint    |       1.000 |     0.018 |       0.008 |      0.010 |
 | Vccaux    |       1.800 |     0.071 |       0.059 |      0.013 |
 | Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -152,6 +151,8 @@ Table of Contents
 |   my_clk_generator    |     0.107 |
 |   my_draw_background  |    <0.001 |
 |   my_draw_rect        |    <0.001 |
+|   my_internal_reset   |    <0.001 |
+|   my_position_memory  |    <0.001 |
 |   my_timing           |    <0.001 |
 |   ps2_clk_IOBUF_inst  |     0.000 |
 |   ps2_data_IOBUF_inst |     0.000 |

@@ -31,6 +31,7 @@ read_verilog -library xil_defaultlib {
   C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/draw_background.v
   C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/draw_rect.v
   C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/internal_reset.v
+  C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/position_memory.v
   C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/vga_timing.v
   C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/rtl/vga_example.v
 }

@@ -43,6 +43,8 @@ module draw_rect (
   localparam RECT_COLOR = 12'h4_4_4;;
   
   reg [11:0] rgb_nxt;
+  reg [11:0] counter;
+  reg [11:0] counter_nxt;
 
   // Synchronical logic
   
@@ -58,6 +60,7 @@ module draw_rect (
         hsync_out  <= 1'b0;
         hblnk_out  <= 1'b0; 
         rgb_out    <= 12'h0_0_0;
+        counter_nxt <= counter +1;
       end
     else 
       begin
@@ -68,13 +71,14 @@ module draw_rect (
         hsync_out  <= hsync_in;
         hblnk_out  <= hblnk_in;
         rgb_out    <= rgb_nxt;
+        counter    <= counter_nxt;
       end
  end
   // Combinational logic
 always @*
   begin
-    if (hcount_in>=xpos && vcount_in>=ypos 
-        && hcount_in<=RECT_WIDTH+xpos && vcount_in<=RECT_HEIGHT+ypos
+    if (hcount_in>=(xpos+counter) && vcount_in>=ypos 
+        && hcount_in<=(RECT_WIDTH+xpos+counter) && vcount_in<=RECT_HEIGHT+ypos
         && hcount_in<MAX_X_POS && vcount_in<MAX_Y_POS
     )  
 

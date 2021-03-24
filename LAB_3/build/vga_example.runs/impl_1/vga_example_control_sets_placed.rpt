@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date         : Wed Mar 24 00:45:28 2021
+| Date         : Wed Mar 24 10:33:39 2021
 | Host         : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file vga_example_control_sets_placed.rpt
 | Design       : vga_example
@@ -22,8 +22,8 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Number of unique control sets                            |    24 |
-| Unused register locations in slices containing registers |    59 |
+| Number of unique control sets                            |    28 |
+| Unused register locations in slices containing registers |    77 |
 +----------------------------------------------------------+-------+
 
 
@@ -33,12 +33,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |             116 |           45 |
-| No           | No                    | Yes                    |              16 |           14 |
-| No           | Yes                   | No                     |              64 |           19 |
-| Yes          | No                    | No                     |              61 |           21 |
+| No           | No                    | No                     |              56 |           24 |
+| No           | No                    | Yes                    |              33 |           16 |
+| No           | Yes                   | No                     |             127 |           43 |
+| Yes          | No                    | No                     |              82 |           24 |
 | Yes          | No                    | Yes                    |              20 |            7 |
-| Yes          | Yes                   | No                     |              40 |           14 |
+| Yes          | Yes                   | No                     |              53 |           22 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -48,45 +48,51 @@ Table of Contents
 +--------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+------------------+----------------+
 |                   Clock Signal                   |                        Enable Signal                       |                      Set/Reset Signal                      | Slice Load Count | Bel Load Count |
 +--------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+------------------+----------------+
+| ~my_clk_generator/pclk                           |                                                            | my_clk_generator/reset_out_reg                             |                1 |              1 |
 |  my_clk_generator/clk100MHz                      |                                                            | my_MouseCtl/Inst_Ps2Interface/clk_inter0                   |                1 |              4 |
 |  my_clk_generator/clk100MHz                      |                                                            | my_MouseCtl/Inst_Ps2Interface/data_inter0                  |                1 |              4 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/x_sign_reg                   | rst_IBUF                                                   |                1 |              4 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/shift_frame                  | my_MouseCtl/Inst_Ps2Interface/reset_bit_count              |                2 |              4 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/load_tx_data_i_2_n_0         | my_MouseCtl/Inst_Ps2Interface/load_tx_data_i_1_n_0         |                3 |              4 |
-|  my_clk_generator/pclk                           |                                                            | my_draw_background/rgb_out_reg[11]_13                      |                1 |              6 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/delay_63clk_count[6]_i_2_n_0 | my_MouseCtl/Inst_Ps2Interface/delay_63clk_count[6]_i_1_n_0 |                2 |              7 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/x_sign_reg                   | rst_IBUF                                                   |                2 |              4 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/shift_frame                  | my_MouseCtl/Inst_Ps2Interface/reset_bit_count              |                1 |              4 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/load_tx_data_i_2_n_0         | my_MouseCtl/Inst_Ps2Interface/load_tx_data_i_1_n_0         |                2 |              4 |
+|  my_clk_generator/pclk                           |                                                            | my_draw_background/rgb_out_reg[11]_12                      |                1 |              6 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/delay_63clk_count[6]_i_2_n_0 | my_MouseCtl/Inst_Ps2Interface/delay_63clk_count[6]_i_1_n_0 |                3 |              7 |
 |  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/E[0]                         | rst_IBUF                                                   |                3 |              8 |
 |  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/load_rx_data                 |                                                            |                2 |              8 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/y_inc_reg[0][0]              | rst_IBUF                                                   |                3 |              8 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/tx_data[7]_i_1_n_0                             |                                                            |                2 |              8 |
-|  my_clk_generator/clk40MHz_clk_generator_en_clk  |                                                            |                                                            |                1 |              8 |
-|  my_clk_generator/clk100MHz_clk_generator_en_clk |                                                            |                                                            |                1 |              8 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/y_inc_reg[0][0]              | rst_IBUF                                                   |                2 |              8 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/tx_data[7]_i_1_n_0                             |                                                            |                3 |              8 |
+|  my_clk_generator/clk40MHz_clk_generator_en_clk  |                                                            | rst_IBUF                                                   |                1 |              8 |
+|  my_clk_generator/clk100MHz_clk_generator_en_clk |                                                            | rst_IBUF                                                   |                1 |              8 |
 |  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/frame[9]_i_1_n_0             |                                                            |                2 |             10 |
 |  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/delay_20us_count[10]_i_2_n_0 | my_MouseCtl/Inst_Ps2Interface/delay_20us_count[10]_i_1_n_0 |                3 |             11 |
-|  my_clk_generator/pclk                           | my_timing/vertical_blank_nxt                               |                                                            |                6 |             11 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/y_new_reg_n_0                                  |                                                            |                5 |             12 |
-|  my_clk_generator/clk100MHz                      | my_MouseCtl/x_new_reg_n_0                                  |                                                            |                4 |             12 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/x_new_reg_n_0                                  |                                                            |                3 |             12 |
+|  my_clk_generator/clk100MHz                      | my_MouseCtl/y_new_reg_n_0                                  |                                                            |                4 |             12 |
+|  my_clk_generator/pclk                           | my_internal_reset/reset                                    |                                                            |                4 |             12 |
+|  my_clk_generator/pclk                           | my_timing/vertical_blank_nxt                               | my_internal_reset/reset                                    |                9 |             13 |
 |  my_clk_generator/clk100MHz                      | my_MouseCtl/Inst_Ps2Interface/delay_100us_count[0]_i_2_n_0 | my_MouseCtl/Inst_Ps2Interface/delay_100us_count[0]_i_1_n_0 |                4 |             14 |
-|  my_clk_generator/clk100MHz                      |                                                            | rst_IBUF                                                   |               14 |             16 |
-|  my_clk_generator/clk100MHz                      |                                                            | my_MouseCtl/reset_timeout_cnt                              |                9 |             24 |
+|  my_clk_generator/clk100MHz                      |                                                            | rst_IBUF                                                   |               13 |             16 |
+|  my_clk_generator/pclk                           |                                                            |                                                            |                6 |             17 |
+|  my_clk_generator/pclk                           | my_internal_reset/E[0]                                     |                                                            |                6 |             20 |
+|  my_clk_generator/clk100MHz                      |                                                            | my_MouseCtl/reset_timeout_cnt                              |                6 |             24 |
 |  my_clk_generator/clk100MHz                      |                                                            | my_MouseCtl/reset_periodic_check_cnt                       |                7 |             26 |
-|  my_clk_generator/clk100MHz                      |                                                            |                                                            |               19 |             39 |
-|  my_clk_generator/pclk                           |                                                            |                                                            |               25 |             63 |
+|  my_clk_generator/clk100MHz                      |                                                            |                                                            |               18 |             39 |
+|  my_clk_generator/pclk                           |                                                            | my_internal_reset/reset                                    |               27 |             63 |
 +--------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+------------------+----------------+
 
 
 +--------+-----------------------+
 | Fanout | Number of ControlSets |
 +--------+-----------------------+
+| 1      |                     1 |
 | 4      |                     5 |
 | 6      |                     1 |
 | 7      |                     1 |
 | 8      |                     6 |
 | 10     |                     1 |
-| 11     |                     2 |
-| 12     |                     2 |
+| 11     |                     1 |
+| 12     |                     3 |
+| 13     |                     1 |
 | 14     |                     1 |
-| 16+    |                     5 |
+| 16+    |                     7 |
 +--------+-----------------------+
 
 

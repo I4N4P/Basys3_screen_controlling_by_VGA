@@ -2,8 +2,8 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Wed Mar 24 01:08:18 2021
-# Process ID: 5792
+# Start of session at: Wed Mar 24 10:39:50 2021
+# Process ID: 7080
 # Current directory: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3
 # Command line: vivado.exe -mode tcl -source run.tcl -tclargs program
 # Log file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_3/vivado.log

@@ -1,5 +1,5 @@
 // File: internal_reset.v
-// This is the top level design for EE178 Lab #2.
+// This is the top level design for EE178 Lab #3.
 
 // The `timescale directive specifies what the
 // simulation time units are (1 ns here) and what
@@ -16,7 +16,16 @@ module internal_reset (
     output  reg  reset_out
     );
 
-    reg  reset_out_nxt;
+
+    always @(negedge pclk or negedge locked) 
+        begin
+            if(!locked)
+                reset_out <= 1'b1;
+            else 
+                reset_out <= 1'b0;
+        end
+
+    /*reg  reset_out_nxt;
 
     reg [10:0] counter=11'b0;
     reg [10:0] counter_nxt;
@@ -29,7 +38,7 @@ module internal_reset (
 
     always @(negedge locked)
         begin
-            counter <=11'b0;
+            counter_nxt <=11'b0;
             reset_out <=1'b1;
             
         end
@@ -37,7 +46,7 @@ module internal_reset (
 
     always @*
         begin
-            if(counter > 100)
+            if(counter_nxt > 100)
                 begin
                     reset_out_nxt =1'b0;
                     counter_nxt=counter;
@@ -48,6 +57,6 @@ module internal_reset (
                     counter_nxt=counter+1;
                 end
 
-        end
+        end */
 endmodule
 
