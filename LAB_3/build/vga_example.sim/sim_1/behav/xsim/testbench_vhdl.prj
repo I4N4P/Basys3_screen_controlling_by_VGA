@@ -1,0 +1,8 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../rtl/MouseCtl.vhd" \
+"../../../../../rtl/MouseDisplay.vhd" \
+"../../../../../rtl/Ps2Interface.vhd" \
+
+# Do not sort compile order
+nosort
