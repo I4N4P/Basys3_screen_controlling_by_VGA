@@ -52,6 +52,8 @@ read_verilog {
     rtl/clk_generator.v
     rtl/internal_reset.v
     rtl/position_memory.v
+    rtl/image_rom.v
+    rtl/signal_synchronizer.v
 }
 
 
