@@ -1,0 +1,73 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Wed Mar 31 18:28:32 2021
+# Process ID: 1088
+# Current directory: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/draw_rect
+# Command line: vivado.exe -mode tcl -source run.tcl -tclargs simulation
+# Log file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/draw_rect/vivado.log
+# Journal file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/draw_rect\vivado.jou
+#-----------------------------------------------------------
+source run.tcl
+source draw_rect_ctl_test.tcl
+update_compile_order -fileset sources_1
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+restart
+run all
+restart
+run 1000 us
+run 1000 us
+run 1000 us
+run 10 us
+restart
+run 10 us
+run 30 us
+run 20 us
+restart
+run 20 us
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+run 20 us
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+run 20 us
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+run all
+run 20 us
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+run 20 us
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+run 20 us
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+close_sim

@@ -1,0 +1,77 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Thu Apr  1 13:18:47 2021
+# Process ID: 20980
+# Current directory: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/draw_rect
+# Command line: vivado.exe -mode tcl -source run.tcl -tclargs simulation
+# Log file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/draw_rect/vivado.log
+# Journal file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/draw_rect\vivado.jou
+#-----------------------------------------------------------
+source run.tcl
+source draw_rect_ctl_test.tcl
+update_compile_order -fileset sources_1
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} 
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} 
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} 
+restart
+run all
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} 
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+log_wave {/draw_rect_ctl_test/my_draw_rect_ctl/ADD} 
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} 
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} 
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} 
+restart
+run all
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} 
+restart
+run all
+restart
+run all
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} 
+run all
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos_tmp}} {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos_tmp}} 
+restart
+run all
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} 
+restart
+run all
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} 
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} 
+restart
+run all
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos_tmp}} {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos_tmp}} 
+restart
+run all
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos_nxt}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos_nxt}} 
+restart
+run all
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos_tmp}} {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos_tmp}} 
+restart
+run all
+close_sim
+launch_simulation
+source draw_rect_ctl_test.tcl
+add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ADD}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos_tmp}} {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos_tmp}} 
+restart
+run all
+close_sim

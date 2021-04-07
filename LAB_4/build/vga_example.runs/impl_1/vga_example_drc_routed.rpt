@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date         : Wed Mar 31 15:25:41 2021
+| Date         : Wed Apr  7 12:27:42 2021
 | Host         : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command      : report_drc -file vga_example_drc_routed.rpt -pb vga_example_drc_routed.pb -rpx vga_example_drc_routed.rpx
 | Design       : vga_example
@@ -24,134 +24,29 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 24
-+-----------+----------+----------------------------+------------+
-| Rule      | Severity | Description                | Violations |
-+-----------+----------+----------------------------+------------+
-| REQP-1839 | Warning  | RAMB36 async control check | 12         |
-| REQP-1840 | Warning  | RAMB18 async control check | 12         |
-+-----------+----------+----------------------------+------------+
+             Violations found: 3
++----------+------------------+--------------------------+------------+
+| Rule     | Severity         | Description              | Violations |
++----------+------------------+--------------------------+------------+
+| LUTLP-1  | Critical Warning | Combinatorial Loop Alert | 1          |
+| PDRC-153 | Warning          | Gated clock check        | 2          |
++----------+------------------+--------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
-REQP-1839#1 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[10] (net: my_draw_rect/ADDRARDADDR[7]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+LUTLP-1#1 Critical Warning
+Combinatorial Loop Alert  
+1 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. If the loop is known and understood, this DRC can be bypassed by acknowledging the condition and setting the following XDC constraint on any one of the nets in the loop: 'set_property ALLOW_COMBINATORIAL_LOOPS TRUE [get_nets <myHier/myNet>]'. One net in the loop is my_draw_rect_ctl/mousepixel_reg[0]. Please evaluate your design. The cells in the loop are: my_draw_rect_ctl/xpos_tmp_reg[0]_i_1.
 Related violations: <none>
 
-REQP-1839#2 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[11] (net: my_draw_rect/ADDRARDADDR[8]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+PDRC-153#1 Warning
+Gated clock check  
+Net my_draw_rect_ctl/ADD_reg[3]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/ADD_reg[3]_i_2/O, cell my_draw_rect_ctl/ADD_reg[3]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
-REQP-1839#3 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[12] (net: my_draw_rect/ADDRARDADDR[9]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#4 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[13] (net: my_draw_rect/ADDRARDADDR[10]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#5 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[14] (net: my_draw_rect/ADDRARDADDR[11]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#6 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[3] (net: my_draw_rect/ADDRARDADDR[0]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#7 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[4] (net: my_draw_rect/ADDRARDADDR[1]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#8 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[5] (net: my_draw_rect/ADDRARDADDR[2]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#9 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[6] (net: my_draw_rect/ADDRARDADDR[3]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#10 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[7] (net: my_draw_rect/ADDRARDADDR[4]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#11 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[8] (net: my_draw_rect/ADDRARDADDR[5]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1839#12 Warning
-RAMB36 async control check  
-The RAMB36E1 my_draw_rect/pixel_addr_reg_0 has an input control pin my_draw_rect/pixel_addr_reg_0/ADDRARDADDR[9] (net: my_draw_rect/ADDRARDADDR[6]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#1 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[10] (net: my_draw_rect/ADDRARDADDR[8]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#2 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[11] (net: my_draw_rect/ADDRARDADDR[9]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#3 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[12] (net: my_draw_rect/ADDRARDADDR[10]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#4 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[13] (net: my_draw_rect/ADDRARDADDR[11]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#5 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[2] (net: my_draw_rect/ADDRARDADDR[0]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#6 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[3] (net: my_draw_rect/ADDRARDADDR[1]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#7 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[4] (net: my_draw_rect/ADDRARDADDR[2]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#8 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[5] (net: my_draw_rect/ADDRARDADDR[3]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#9 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[6] (net: my_draw_rect/ADDRARDADDR[4]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#10 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[7] (net: my_draw_rect/ADDRARDADDR[5]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#11 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[8] (net: my_draw_rect/ADDRARDADDR[6]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
-Related violations: <none>
-
-REQP-1840#12 Warning
-RAMB18 async control check  
-The RAMB18E1 my_draw_rect/pixel_addr_reg_1 has an input control pin my_draw_rect/pixel_addr_reg_1/ADDRARDADDR[9] (net: my_draw_rect/ADDRARDADDR[7]) which is driven by a register (my_internal_reset/reset_out_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+PDRC-153#2 Warning
+Gated clock check  
+Net my_draw_rect_ctl/xpos_tmp_reg[20]_i_1_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/xpos_tmp_reg[20]_i_1/O, cell my_draw_rect_ctl/xpos_tmp_reg[20]_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 

@@ -2,8 +2,8 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Wed Mar 31 15:23:13 2021
-# Process ID: 16052
+# Start of session at: Wed Apr  7 12:25:10 2021
+# Process ID: 24396
 # Current directory: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/build/vga_example.runs/synth_1
 # Command line: vivado.exe -log vga_example.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source vga_example.tcl
 # Log file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/build/vga_example.runs/synth_1/vga_example.vds

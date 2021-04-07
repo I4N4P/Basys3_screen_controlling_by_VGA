@@ -53,7 +53,8 @@ read_verilog {
     rtl/internal_reset.v
     rtl/position_memory.v
     rtl/image_rom.v
-    rtl/signal_synchronizer.v
+    rtl/signal_synchronizer.v 
+    rtl/draw_rect_ctl.v
 }
 
 

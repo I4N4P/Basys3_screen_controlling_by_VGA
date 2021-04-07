@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1617197056">
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1617791178">
   <File Type="PWROPT-DCP" Name="vga_example_pwropt.dcp"/>
   <File Type="ROUTE-PWR" Name="vga_example_power_routed.rpt"/>
   <File Type="PA-TCL" Name="vga_example.tcl"/>
@@ -80,6 +80,13 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../rtl/draw_rect.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../rtl/draw_rect_ctl.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>

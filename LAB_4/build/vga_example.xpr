@@ -6,7 +6,7 @@
 <Project Version="7" Minor="32" Path="C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/build/vga_example.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="88dc0c0734f14feb9377ad7102f3c94a"/>
+    <Option Name="Id" Val="e6c349f67d214f0a9a0658fce0a01019"/>
     <Option Name="Part" Val="xc7a35tcpg236-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -69,6 +69,13 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../rtl/draw_rect.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../rtl/draw_rect_ctl.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>

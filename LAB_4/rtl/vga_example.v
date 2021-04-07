@@ -33,7 +33,8 @@ module vga_example (
   wire locked;
   wire reset;
 
-  wire [11:0]xpos,ypos,xpos_mem,ypos_mem;
+  wire [11:0]xpos,ypos,xpos_mem,ypos_mem,xpos_ctl,ypos_ctl;
+  wire mouse_left,mouse_left_mem;
 
   wire [3:0] red_out,green_out,blue_out;
 
@@ -135,7 +136,8 @@ clk_generator my_clk_generator
         .ps2_clk(ps2_clk), 
         .ps2_data(ps2_data),
         .xpos(xpos),
-        .ypos(ypos)
+        .ypos(ypos),
+        .left(mouse_left)
   );
 
   position_memory my_position_memory
@@ -145,11 +147,24 @@ clk_generator my_clk_generator
 
         .xpos_in(xpos),
         .ypos_in(ypos),
+        .mouse_left_in(mouse_left),
         .xpos_out(xpos_mem),
-        .ypos_out(ypos_mem)
+        .ypos_out(ypos_mem),
+        .mouse_left_out(mouse_left_mem)
   
   );
-  
+  draw_rect_ctl my_draw_rect_ctl
+  (
+        .pclk(pclk),
+        .rst(reset),
+
+        .mouse_xpos(xpos_mem),
+        .mouse_ypos(ypos_mem),
+        .mouse_left(mouse_left_mem),
+
+        .xpos(xpos_ctl),
+        .ypos(ypos_ctl)
+  );
   // Instantiate the vga_timing module
 
   vga_timing my_timing (
@@ -189,8 +204,8 @@ clk_generator my_clk_generator
         .pclk(pclk),
         .rst(reset),
 
-        .xpos(xpos_mem),
-        .ypos(ypos_mem),
+        .xpos(xpos_ctl),
+        .ypos(ypos_ctl),
 
         .vcount_in(vcount_out_b),
         .vsync_in(vsync_out_b),
@@ -221,8 +236,8 @@ clk_generator my_clk_generator
   MouseDisplay my_MouseDisplay
   (
         .pixel_clk(pclk),
-        .xpos(xpos_mem),
-        .ypos(ypos_mem),
+        .xpos(xpos_ctl),
+        .ypos(ypos_ctl),
 
         .vcount(vcount_out),
         .blank(blank),
