@@ -6,7 +6,7 @@
 <Project Version="7" Minor="32" Path="C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/build/vga_example.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="e6c349f67d214f0a9a0658fce0a01019"/>
+    <Option Name="Id" Val="c62bb101dc8c4479b88217a123238d54"/>
     <Option Name="Part" Val="xc7a35tcpg236-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>

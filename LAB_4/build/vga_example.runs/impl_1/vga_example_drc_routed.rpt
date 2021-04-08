@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date         : Wed Apr  7 12:27:42 2021
+| Date         : Thu Apr  8 14:22:26 2021
 | Host         : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command      : report_drc -file vga_example_drc_routed.rpt -pb vga_example_drc_routed.pb -rpx vga_example_drc_routed.rpx
 | Design       : vga_example
@@ -24,19 +24,45 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 3
-+----------+------------------+--------------------------+------------+
-| Rule     | Severity         | Description              | Violations |
-+----------+------------------+--------------------------+------------+
-| LUTLP-1  | Critical Warning | Combinatorial Loop Alert | 1          |
-| PDRC-153 | Warning          | Gated clock check        | 2          |
-+----------+------------------+--------------------------+------------+
+             Violations found: 10
++----------+----------+------------------------+------------+
+| Rule     | Severity | Description            | Violations |
++----------+----------+------------------------+------------+
+| DPOP-1   | Warning  | PREG Output pipelining | 3          |
+| DPOP-2   | Warning  | MREG Output pipelining | 3          |
+| PDRC-153 | Warning  | Gated clock check      | 4          |
++----------+----------+------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
-LUTLP-1#1 Critical Warning
-Combinatorial Loop Alert  
-1 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. If the loop is known and understood, this DRC can be bypassed by acknowledging the condition and setting the following XDC constraint on any one of the nets in the loop: 'set_property ALLOW_COMBINATORIAL_LOOPS TRUE [get_nets <myHier/myNet>]'. One net in the loop is my_draw_rect_ctl/mousepixel_reg[0]. Please evaluate your design. The cells in the loop are: my_draw_rect_ctl/xpos_tmp_reg[0]_i_1.
+DPOP-1#1 Warning
+PREG Output pipelining  
+DSP my_draw_rect_ctl/ypos_mach_nxt3 output my_draw_rect_ctl/ypos_mach_nxt3/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#2 Warning
+PREG Output pipelining  
+DSP my_draw_rect_ctl/ypos_mach_nxt3__0 output my_draw_rect_ctl/ypos_mach_nxt3__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#3 Warning
+PREG Output pipelining  
+DSP my_draw_rect_ctl/ypos_mach_nxt3__1 output my_draw_rect_ctl/ypos_mach_nxt3__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-2#1 Warning
+MREG Output pipelining  
+DSP my_draw_rect_ctl/ypos_mach_nxt3 multiplier stage my_draw_rect_ctl/ypos_mach_nxt3/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#2 Warning
+MREG Output pipelining  
+DSP my_draw_rect_ctl/ypos_mach_nxt3__0 multiplier stage my_draw_rect_ctl/ypos_mach_nxt3__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#3 Warning
+MREG Output pipelining  
+DSP my_draw_rect_ctl/ypos_mach_nxt3__1 multiplier stage my_draw_rect_ctl/ypos_mach_nxt3__1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
 Related violations: <none>
 
 PDRC-153#1 Warning
@@ -46,7 +72,17 @@ Related violations: <none>
 
 PDRC-153#2 Warning
 Gated clock check  
-Net my_draw_rect_ctl/xpos_tmp_reg[20]_i_1_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/xpos_tmp_reg[20]_i_1/O, cell my_draw_rect_ctl/xpos_tmp_reg[20]_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net my_draw_rect_ctl/freq_div_nxt_reg[29]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/freq_div_nxt_reg[29]_i_2/O, cell my_draw_rect_ctl/freq_div_nxt_reg[29]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#3 Warning
+Gated clock check  
+Net my_draw_rect_ctl/xpos_mach_nxt_reg[11]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/xpos_mach_nxt_reg[11]_i_2/O, cell my_draw_rect_ctl/xpos_mach_nxt_reg[11]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#4 Warning
+Gated clock check  
+Net my_draw_rect_ctl/xpos_tmp_reg[11]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/xpos_tmp_reg[11]_i_2/O, cell my_draw_rect_ctl/xpos_tmp_reg[11]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 

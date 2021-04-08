@@ -49,7 +49,7 @@ module draw_rect_ctl (
 
  reg[1:0] state,state_nxt;
 
- reg [11:0] xpos_nxt = 0,ypos_nxt = 0;
+ reg [29:0] xpos_nxt = 0,ypos_nxt = 0;
  reg [20:0] ypos_tmp = 0,xpos_tmp = 0;
  reg mouse_left_nxt = 0;
   
@@ -78,6 +78,10 @@ module draw_rect_ctl (
         begin
                 //xpos  = xpos_nxt;
                 //ypos  = ypos_nxt; 
+                xpos_nxt = xpos_nxt;
+                ADD = ADD;
+                xpos_tmp  = xpos_tmp;
+                ypos_tmp  = ypos_tmp;
 
                 case(state)
                         RESET :         
@@ -87,14 +91,26 @@ module draw_rect_ctl (
                                 end
                         MOUSE_DOWN :    
                                 begin
-                                        if (xpos_tmp == 752) 
-                                                ADD = -1;//{1'b1,ADD[19:0]};
-                                        else if (xpos_tmp == 0)
-                                                ADD = 1;//{1'b0,ADD[19:0]};
-                                        xpos_tmp  = xpos+ADD; 
+                                        if(xpos_nxt >= 400000000) begin
+                                                /*if (xpos_tmp == 752) 
+                                                        ADD = -1;//{1'b1,ADD[19:0]};
+                                                else if (xpos_tmp == 0)
+                                                        ADD = 1;//{1'b0,ADD[19:0]};
+                                                else 
+                                                        ADD = ADD;*/
+                                                xpos_tmp  = xpos_tmp+1; 
+                                                //ypos_tmp  = ypos_tmp;
+                                                //ypos_tmp  = (SF)*(xpos_tmp*xpos_tmp) + (SF2*(xpos_tmp));;
+                                                xpos_nxt = 0;
+                                        end else begin
+                                                xpos_tmp  = xpos_tmp;
+                                                //ypos_tmp  = ypos_tmp;
+                                                //ADD = ADD;
+                                                xpos_nxt = xpos_nxt+1;
+                                        end
                                         xpos      = xpos_tmp[11:0];
-                                        ypos_tmp  = (SF)*(xpos_tmp*xpos_tmp) + (SF2*(xpos_tmp));
                                         ypos      = ypos_tmp[11:0];
+
                                 end
                         MOUSE_UP :      
                                 begin

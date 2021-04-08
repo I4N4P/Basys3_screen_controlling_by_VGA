@@ -2,16 +2,11 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Wed Apr  7 12:16:24 2021
-# Process ID: 8724
+# Start of session at: Thu Apr  8 14:03:18 2021
+# Process ID: 17028
 # Current directory: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4
-# Command line: vivado.exe -mode tcl -source run.tcl -tclargs simulation
+# Command line: vivado.exe -mode tcl -source run.tcl -tclargs program
 # Log file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/vivado.log
 # Journal file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4\vivado.jou
 #-----------------------------------------------------------
 source run.tcl
-source testbench.tcl
-update_compile_order -fileset sources_1
-update_compile_order -fileset sim_1
-synth_design -rtl -name rtl_1
-close_sim

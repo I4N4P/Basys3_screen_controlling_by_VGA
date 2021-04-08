@@ -27,31 +27,15 @@ module draw_rect_ctl (
   localparam RESET       = 0'b01;
   localparam MOUSE_DOWN  = 0'b10;
   localparam MOUSE_UP    = 0'b11;
-
-  localparam S1 = 2.0**-9.0;
-  localparam S2 = 2.0**-10.0;
-  localparam S3 = 2.0**-11.0;
-  localparam S4 = 2.0**-12.0;
-  localparam S5 = 2.0**-13.0;
-  localparam SF = (-1)*(S1+S2+S3+S4+S5);
-  
-  localparam S6 = 2.0**-1.0;
-  localparam S7 = 2.0**-2.0;
-  localparam S8 = 2.0**-4.0;
-  localparam S9 = 2.0**-5.0;
-  localparam S10 = 2.0;
-  localparam SF2 = S6+S7+S8+S9+S10;
-  
-  
   
  reg[20:0] ADD = 1;
   
 
  reg[1:0] state,state_nxt;
 
- reg [11:0] xpos_nxt = 0,ypos_nxt = 0;
- reg [20:0] ypos_tmp = 0,xpos_tmp = 0;
- reg mouse_left_nxt = 0;
+ reg [29:0] freq_div = 0,freq_div_nxt = 0;
+ reg [11:0] ypos_tmp = 0,xpos_tmp = 0;
+ reg [29:0] xpos_mach = 0,ypos_mach = 0,xpos_mach_nxt = 0,ypos_mach_nxt = 0;
   
   // state register
   
@@ -59,8 +43,15 @@ module draw_rect_ctl (
         begin
                 if(rst)
                         state <= RESET;
-                else
+                else begin
                         state <= state_nxt;
+                        ypos  <= ypos_tmp[11:0];
+                        xpos  <= xpos_tmp[11:0];
+
+                        xpos_mach <= xpos_mach_nxt[11:0];
+                        ypos_mach <= ypos_mach_nxt[11:0];
+                        freq_div  <= freq_div_nxt;
+                end
         end
   // next state logic
  always @(state or rst or mouse_left) 
@@ -76,35 +67,44 @@ module draw_rect_ctl (
   // output logic      
  always @* 
         begin
-                //xpos  = xpos_nxt;
-                //ypos  = ypos_nxt; 
+
+                ADD = ADD;
+                xpos_tmp  = xpos_tmp;
+                ypos_tmp  = ypos_tmp;
 
                 case(state)
                         RESET :         
                                 begin
-                                      xpos  = 12'b0;
-                                      ypos  = 12'b0;  
+                                      xpos_tmp  = 12'b0;
+                                      ypos_tmp  = 12'b0;  
                                 end
                         MOUSE_DOWN :    
                                 begin
-                                        if (xpos_tmp == 752) 
-                                                ADD = -1;//{1'b1,ADD[19:0]};
-                                        else if (xpos_tmp == 0)
-                                                ADD = 1;//{1'b0,ADD[19:0]};
-                                        xpos_tmp  = xpos+ADD; 
-                                        xpos      = xpos_tmp[11:0];
-                                        //ypos_tmp  = (SF)*(xpos_tmp*xpos_tmp) + (SF2*(xpos_tmp));
-                                        ypos      = ypos_tmp[11:0];
+                                        if(freq_div == 4_000_000) begin
+                                                if (xpos_tmp == 752) 
+                                                        ADD = -1;
+                                                else if (xpos_tmp == 0)
+                                                        ADD = 1;
+                                                else 
+                                                        ADD = ADD;
+                                                xpos_mach_nxt = xpos_mach + ADD; 
+                                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
+                                                freq_div_nxt = 0;
+                                        end else begin
+                                                xpos_tmp  = xpos_mach[11:0];
+                                                ypos_tmp  = ypos_mach[11:0];
+                                                freq_div_nxt = freq_div+1;
+                                        end
                                 end
                         MOUSE_UP :      
                                 begin
-                                      xpos  = mouse_xpos;
-                                      ypos  = mouse_ypos;  
+                                      xpos_tmp  = mouse_xpos;
+                                      ypos_tmp  = mouse_ypos;  
                                 end
                         default : 
                                 begin
-                                      xpos  = mouse_xpos;
-                                      ypos  = mouse_ypos;  
+                                      xpos_tmp  = mouse_xpos;
+                                      ypos_tmp  = mouse_ypos;  
                                 end
                 endcase    
         end
