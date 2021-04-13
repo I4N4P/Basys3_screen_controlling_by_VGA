@@ -23,79 +23,89 @@ module draw_rect_ctl (
 
         );
 
-        localparam IDDLE           = 3'b000;
-        localparam RESET           = 3'b001;
-        localparam DRAW_RECT_LEFT  = 3'b010;
-        localparam DRAW_RECT_RIGHT = 3'b011;
-        localparam PASS_THROUGH    = 3'b100;
-
-        reg forward ;
-        reg forward_nxt = 1'b1;
+        localparam PASS_THROUGH    = 2'b00;
+        localparam RESET           = 2'b01;
+        localparam DRAW_RECT_LEFT  = 2'b10;
+        localparam DRAW_RECT_RIGHT = 2'b11;
         
+        reg forward,forward_nxt = 1'b1;
 
-        reg[2:0] state,state_nxt;
+        reg[1:0] state,state_nxt;
 
         reg [29:0] freq_div = 0,freq_div_nxt = 0;
         reg [11:0] ypos_tmp = 0,xpos_tmp = 0;
-        reg [29:0] xpos_mach = 0,ypos_mach = 0,xpos_mach_nxt = 0,ypos_mach_nxt = 0;
+        reg [11:0] xpos_mach = 0,ypos_mach = 0,xpos_mach_nxt = 0,ypos_mach_nxt = 0;
         
         // state register
-  
+        
         always @(posedge pclk) begin
                  if(rst)
                         state <= RESET;
-                else begin
-                        state <= state_nxt;
-                        ypos  <= ypos_tmp[11:0];
-                        xpos  <= xpos_tmp[11:0];
-                        xpos_mach <= xpos_mach_nxt[11:0];
-                        ypos_mach <= ypos_mach_nxt[11:0];
-                        freq_div  <= freq_div_nxt;
-                        forward <= forward_nxt;
-                end
+                else
+                        state <= state_nxt;        
         end
 
         // next state logic
 
         always @(state or rst or mouse_left or forward) begin
                 case(state)
-                        RESET : state_nxt = rst ? RESET : IDDLE;
-                        IDDLE :         
-                                if(mouse_left)
-                                        state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
-                                else
-                                        state_nxt = PASS_THROUGH;
-                        
-                        DRAW_RECT_LEFT :    
-                                if(mouse_left)
-                                        state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
-                                else
-                                        state_nxt = IDDLE;
-                        DRAW_RECT_RIGHT :    
-                                if(mouse_left)
-                                        state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
-                                else
-                                        state_nxt = IDDLE;
-
-                        PASS_THROUGH :      state_nxt = mouse_left ? IDDLE : PASS_THROUGH;
-                        default :       state_nxt = IDDLE;
+                RESET :         
+                        if(rst)
+                                state_nxt = RESET;
+                        else if (mouse_left)
+                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_LEFT :    
+                        if(mouse_left)
+                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_RIGHT :    
+                        if(mouse_left)
+                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                        else
+                                state_nxt = PASS_THROUGH;
+                PASS_THROUGH :  
+                        if(mouse_left)
+                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                        else
+                                state_nxt = PASS_THROUGH;
+                default :       state_nxt = PASS_THROUGH;
                 endcase
 
-        end 
-        // output logic      
+        end  
+
+        // output sequential logic 
+  
+        always @(posedge pclk) begin
+                ypos       <= ypos_tmp[11:0];
+                xpos       <= xpos_tmp[11:0];
+                xpos_mach  <= xpos_mach_nxt;
+                ypos_mach  <= ypos_mach_nxt;
+                freq_div   <= freq_div_nxt;
+                forward    <= forward_nxt;  
+        end
+
+        // output combinational logic
+
         always @* begin
 
-                xpos_mach_nxt=xpos_mach;
-                ypos_mach_nxt=ypos_mach;
-                forward_nxt = forward;
-                ypos_tmp  = ypos_mach[11:0];
-                xpos_tmp  = xpos_mach[11:0];
-                freq_div_nxt = freq_div; 
+                xpos_mach_nxt   = xpos_mach;
+                ypos_mach_nxt   = ypos_mach;
+                forward_nxt     = forward;
+                ypos_tmp        = ypos_mach[11:0];
+                xpos_tmp        = xpos_mach[11:0];
+                freq_div_nxt    = freq_div; 
 
                 case (state) 
                 RESET : begin         
-                        xpos_tmp  = 12'b0;
-                        ypos_tmp  = 12'b0;  
+                        xpos_tmp      = 12'b0;
+                        ypos_tmp      = 12'b0;
+                        xpos_mach_nxt = 30'b0;
+                        ypos_mach_nxt = 30'b0;
+                        forward_nxt   = 1'b1;
+                        freq_div_nxt  = 30'b0;  
                 end
                 DRAW_RECT_RIGHT : begin
                         if (xpos_tmp == 752) 
