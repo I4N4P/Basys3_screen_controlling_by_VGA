@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date         : Tue Apr 13 18:09:03 2021
+| Date         : Tue Apr 13 21:39:48 2021
 | Host         : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command      : report_methodology -file vga_example_methodology_drc_routed.rpt -pb vga_example_methodology_drc_routed.pb -rpx vga_example_methodology_drc_routed.rpx
 | Design       : vga_example
@@ -23,14 +23,14 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 87
+             Violations found: 38
 +-----------+----------+--------------------------------------------+------------+
 | Rule      | Severity | Description                                | Violations |
 +-----------+----------+--------------------------------------------+------------+
 | SYNTH-6   | Warning  | Timing of a block RAM might be sub-optimal | 2          |
 | SYNTH-10  | Warning  | Wide multiplier                            | 3          |
 | TIMING-18 | Warning  | Missing input or output delay              | 3          |
-| TIMING-20 | Warning  | Non-clocked latch                          | 79         |
+| TIMING-20 | Warning  | Non-clocked latch                          | 30         |
 +-----------+----------+--------------------------------------------+------------+
 
 2. REPORT DETAILS
@@ -77,397 +77,152 @@ Related violations: <none>
 
 TIMING-20#1 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/ADD_reg[11] cannot be properly analyzed as its control pin my_draw_rect_ctl/ADD_reg[11]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[0] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[0]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#2 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[0] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[0]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[10] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[10]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#3 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[10] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[10]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[11] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[11]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#4 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[11] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[11]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[12] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[12]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#5 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[12] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[12]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[13] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[13]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#6 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[13] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[13]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[14] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[14]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#7 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[14] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[14]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[15] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[15]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#8 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[15] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[15]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[16] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[16]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#9 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[16] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[16]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[17] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[17]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#10 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[17] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[17]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[18] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[18]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#11 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[18] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[18]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[19] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[19]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#12 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[19] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[19]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[1] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[1]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#13 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[1] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[1]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[20] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[20]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#14 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[20] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[20]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[21] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[21]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#15 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[21] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[21]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[22] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[22]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#16 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[22] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[22]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[23] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[23]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#17 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[23] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[23]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[24] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[24]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#18 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[24] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[24]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[25] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[25]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#19 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[25] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[25]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[26] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[26]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#20 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[26] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[26]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[27] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[27]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#21 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[27] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[27]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[28] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[28]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#22 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[28] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[28]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[29] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[29]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#23 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[29] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[29]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[2] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[2]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#24 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[2] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[2]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[3] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[3]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#25 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[3] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[3]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[4] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[4]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#26 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[4] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[4]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[5] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[5]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#27 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[5] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[5]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[6] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[6]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#28 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[6] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[6]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[7] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[7]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#29 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[7] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[7]/G is not reached by a timing clock
+The latch my_draw_rect_ctl/freq_div_nxt_reg[8] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[8]/G is not reached by a timing clock
 Related violations: <none>
 
 TIMING-20#30 Warning
 Non-clocked latch  
-The latch my_draw_rect_ctl/freq_div_nxt_reg[8] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[8]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#31 Warning
-Non-clocked latch  
 The latch my_draw_rect_ctl/freq_div_nxt_reg[9] cannot be properly analyzed as its control pin my_draw_rect_ctl/freq_div_nxt_reg[9]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#32 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[0] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[0]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#33 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[10] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[10]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#34 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[11] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[11]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#35 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[1] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[1]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#36 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[2] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[2]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#37 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[3] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[3]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#38 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[4] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[4]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#39 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[5] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[5]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#40 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[6] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[6]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#41 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[7] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[7]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#42 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[8] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[8]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#43 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_mach_nxt_reg[9] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_mach_nxt_reg[9]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#44 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[0] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[0]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#45 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[10] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[10]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#46 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[11] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[11]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#47 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[1] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[1]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#48 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[2] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[2]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#49 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[3] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[3]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#50 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[4] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[4]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#51 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[5] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[5]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#52 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[6] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[6]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#53 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[7] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[7]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#54 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[8] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[8]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#55 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/xpos_tmp_reg[9] cannot be properly analyzed as its control pin my_draw_rect_ctl/xpos_tmp_reg[9]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#56 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[0] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[0]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#57 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[10] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[10]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#58 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[11] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[11]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#59 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[1] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[1]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#60 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[2] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[2]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#61 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[3] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[3]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#62 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[4] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[4]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#63 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[5] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[5]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#64 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[6] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[6]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#65 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[7] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[7]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#66 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[8] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[8]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#67 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_mach_nxt_reg[9] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_mach_nxt_reg[9]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#68 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[0] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[0]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#69 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[10] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[10]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#70 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[11] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[11]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#71 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[1] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[1]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#72 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[2] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[2]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#73 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[3] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[3]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#74 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[4] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[4]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#75 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[5] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[5]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#76 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[6] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[6]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#77 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[7] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[7]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#78 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[8] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[8]/G is not reached by a timing clock
-Related violations: <none>
-
-TIMING-20#79 Warning
-Non-clocked latch  
-The latch my_draw_rect_ctl/ypos_tmp_reg[9] cannot be properly analyzed as its control pin my_draw_rect_ctl/ypos_tmp_reg[9]/G is not reached by a timing clock
 Related violations: <none>
 
 

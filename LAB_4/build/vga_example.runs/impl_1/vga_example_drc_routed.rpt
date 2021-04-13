@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date         : Tue Apr 13 18:09:00 2021
+| Date         : Tue Apr 13 21:39:45 2021
 | Host         : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command      : report_drc -file vga_example_drc_routed.rpt -pb vga_example_drc_routed.pb -rpx vga_example_drc_routed.rpx
 | Design       : vga_example
@@ -24,13 +24,13 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 10
+             Violations found: 7
 +----------+----------+------------------------+------------+
 | Rule     | Severity | Description            | Violations |
 +----------+----------+------------------------+------------+
 | DPOP-1   | Warning  | PREG Output pipelining | 3          |
 | DPOP-2   | Warning  | MREG Output pipelining | 3          |
-| PDRC-153 | Warning  | Gated clock check      | 4          |
+| PDRC-153 | Warning  | Gated clock check      | 1          |
 +----------+----------+------------------------+------------+
 
 2. REPORT DETAILS
@@ -67,22 +67,7 @@ Related violations: <none>
 
 PDRC-153#1 Warning
 Gated clock check  
-Net my_draw_rect_ctl/ADD_reg[11]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/ADD_reg[11]_i_2/O, cell my_draw_rect_ctl/ADD_reg[11]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
-Related violations: <none>
-
-PDRC-153#2 Warning
-Gated clock check  
 Net my_draw_rect_ctl/freq_div_nxt_reg[29]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/freq_div_nxt_reg[29]_i_2/O, cell my_draw_rect_ctl/freq_div_nxt_reg[29]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
-Related violations: <none>
-
-PDRC-153#3 Warning
-Gated clock check  
-Net my_draw_rect_ctl/xpos_mach_nxt_reg[11]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/xpos_mach_nxt_reg[11]_i_2/O, cell my_draw_rect_ctl/xpos_mach_nxt_reg[11]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
-Related violations: <none>
-
-PDRC-153#4 Warning
-Gated clock check  
-Net my_draw_rect_ctl/xpos_tmp_reg[11]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/xpos_tmp_reg[11]_i_2/O, cell my_draw_rect_ctl/xpos_tmp_reg[11]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 
