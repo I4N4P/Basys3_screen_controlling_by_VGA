@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date             : Thu Apr  8 14:22:31 2021
+| Date             : Tue Apr 13 18:09:05 2021
 | Host             : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command          : report_power -file vga_example_power_routed.rpt -pb vga_example_power_summary_routed.pb -rpx vga_example_power_routed.rpx
 | Design           : vga_example
@@ -53,18 +53,18 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |     0.004 |        6 |       --- |             --- |
-| Slice Logic             |     0.008 |     2770 |       --- |             --- |
-|   LUT as Logic          |     0.007 |     1370 |     20800 |            6.59 |
-|   CARRY4                |    <0.001 |      269 |      8150 |            3.30 |
-|   Register              |    <0.001 |      625 |     41600 |            1.50 |
-|   F7/F8 Muxes           |    <0.001 |        8 |     32600 |            0.02 |
-|   LUT as Shift Register |    <0.001 |        4 |      9600 |            0.04 |
-|   Others                |     0.000 |       32 |       --- |             --- |
-| Signals                 |     0.007 |     2362 |       --- |             --- |
+| Slice Logic             |     0.008 |     2794 |       --- |             --- |
+|   LUT as Logic          |     0.007 |     1377 |     20800 |            6.62 |
+|   CARRY4                |    <0.001 |      270 |      8150 |            3.31 |
+|   Register              |    <0.001 |      641 |     41600 |            1.54 |
+|   F7/F8 Muxes           |    <0.001 |       11 |     32600 |            0.03 |
+|   LUT as Shift Register |    <0.001 |        2 |      9600 |            0.02 |
+|   Others                |     0.000 |       33 |       --- |             --- |
+| Signals                 |     0.007 |     2337 |       --- |             --- |
 | Block RAM               |     0.001 |      1.5 |        50 |            3.00 |
 | MMCM                    |     0.106 |        1 |         5 |           20.00 |
 | DSPs                    |    <0.001 |        3 |        90 |            3.33 |
-| I/O                     |     0.007 |       19 |       106 |           17.92 |
+| I/O                     |     0.006 |       19 |       106 |           17.92 |
 | Static Power            |     0.072 |          |           |                 |
 | Total                   |     0.205 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+

@@ -5,18 +5,18 @@
 // The output 'rgb' is 12-bit number with concatenated
 // red, green and blue color values (4-bit each)
 module image_rom (
-    input wire clk ,
-    input wire [11:0] address,  // address = {addry[5:0], addrx[5:0]}
-    output reg [11:0] rgb
-);
+        input wire clk ,
+        input wire [11:0] address,  // address = {addry[5:0], addrx[5:0]}
+        output reg [11:0] rgb
+        );
 
 
-reg [11:0] rom [0:4095];
+        reg [11:0] rom [0:4095];
 
-initial $readmemh("image_rom.data", rom); 
+        initial $readmemh("image_rom.data", rom); 
 
-always @(posedge clk)
+        always @(posedge clk)
 
-         rgb <= rom[address];
+                rgb <= rom[address];
 
 endmodule

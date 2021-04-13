@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date         : Thu Apr  8 14:22:26 2021
+| Date         : Tue Apr 13 18:09:00 2021
 | Host         : ChinskiBratPatrzy running 64-bit major release  (build 9200)
 | Command      : report_drc -file vga_example_drc_routed.rpt -pb vga_example_drc_routed.pb -rpx vga_example_drc_routed.rpx
 | Design       : vga_example
@@ -67,7 +67,7 @@ Related violations: <none>
 
 PDRC-153#1 Warning
 Gated clock check  
-Net my_draw_rect_ctl/ADD_reg[3]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/ADD_reg[3]_i_2/O, cell my_draw_rect_ctl/ADD_reg[3]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net my_draw_rect_ctl/ADD_reg[11]_i_2_n_0 is a gated clock net sourced by a combinational pin my_draw_rect_ctl/ADD_reg[11]_i_2/O, cell my_draw_rect_ctl/ADD_reg[11]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#2 Warning

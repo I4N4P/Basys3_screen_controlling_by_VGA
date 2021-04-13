@@ -2,8 +2,8 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Thu Apr  8 14:19:29 2021
-# Process ID: 23080
+# Start of session at: Tue Apr 13 18:06:09 2021
+# Process ID: 17416
 # Current directory: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/build/vga_example.runs/synth_1
 # Command line: vivado.exe -log vga_example.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source vga_example.tcl
 # Log file: C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/build/vga_example.runs/synth_1/vga_example.vds
@@ -15,9 +15,9 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 23472 
+INFO: Helper process launched with PID 6444 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 388.984 ; gain = 96.160
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 388.359 ; gain = 95.301
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'vga_example' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/vga_example.v:14]
 INFO: [Synth 8-638] synthesizing module 'clk_generator' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/clk_generator.v:70]
@@ -114,7 +114,6 @@ WARNING: [Synth 8-6014] Unused sequential element x_inter_reg was removed.  [C:/
 WARNING: [Synth 8-6014] Unused sequential element inc_reg was removed.  [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/MouseCtl.vhd:514]
 WARNING: [Synth 8-6014] Unused sequential element y_inter_reg was removed.  [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/MouseCtl.vhd:520]
 INFO: [Synth 8-256] done synthesizing module 'MouseCtl' (10#1) [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/MouseCtl.vhd:207]
-WARNING: [Synth 8-350] instance 'my_MouseCtl' of module 'MouseCtl' requires 16 connections, but only 12 given [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/vga_example.v:126]
 INFO: [Synth 8-638] synthesizing module 'position_memory' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/position_memory.v:15]
 INFO: [Synth 8-256] done synthesizing module 'position_memory' (11#1) [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/position_memory.v:15]
 INFO: [Synth 8-638] synthesizing module 'draw_rect_ctl' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/draw_rect_ctl.v:13]
@@ -137,11 +136,8 @@ INFO: [Synth 8-256] done synthesizing module 'vga_timing' (13#1) [C:/Users/dawid
 INFO: [Synth 8-638] synthesizing module 'draw_background' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/draw_background.v:13]
 INFO: [Synth 8-256] done synthesizing module 'draw_background' (14#1) [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/draw_background.v:13]
 INFO: [Synth 8-638] synthesizing module 'draw_rect' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/draw_rect.v:13]
-	Parameter RECT_HEIGHT bound to: 63 - type: integer 
-	Parameter RECT_WIDTH bound to: 47 - type: integer 
-	Parameter MAX_X_POS bound to: 800 - type: integer 
-	Parameter MAX_Y_POS bound to: 600 - type: integer 
-	Parameter RECT_COLOR bound to: 12'b010001000100 
+	Parameter RECT_HEIGHT bound to: 64 - type: integer 
+	Parameter RECT_WIDTH bound to: 48 - type: integer 
 INFO: [Synth 8-638] synthesizing module 'signal_synchronizer' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/signal_synchronizer.v:13]
 INFO: [Synth 8-256] done synthesizing module 'signal_synchronizer' (15#1) [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/signal_synchronizer.v:13]
 INFO: [Synth 8-256] done synthesizing module 'draw_rect' (16#1) [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/draw_rect.v:13]
@@ -151,10 +147,9 @@ INFO: [Synth 8-256] done synthesizing module 'image_rom' (17#1) [C:/Users/dawid/
 INFO: [Synth 8-638] synthesizing module 'MouseDisplay' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/MouseDisplay.vhd:129]
 WARNING: [Synth 8-614] signal 'ypos' is read in the process but is not in the sensitivity list [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/MouseDisplay.vhd:197]
 INFO: [Synth 8-256] done synthesizing module 'MouseDisplay' (18#1) [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/MouseDisplay.vhd:129]
-WARNING: [Synth 8-350] instance 'my_MouseDisplay' of module 'MouseDisplay' requires 13 connections, but only 12 given [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/vga_example.v:236]
 INFO: [Synth 8-256] done synthesizing module 'vga_example' (19#1) [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/vga_example.v:14]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 437.078 ; gain = 144.254
+Finished RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 437.453 ; gain = 144.395
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -164,7 +159,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 437.078 ; gain = 144.254
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 437.453 ; gain = 144.395
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 5 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -184,22 +179,22 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 2 instances were transformed.
   BUFGCE => BUFGCTRL: 2 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 752.074 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 751.441 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 752.074 ; gain = 459.250
+Finished Constraint Validation : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 751.441 ; gain = 458.383
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 752.074 ; gain = 459.250
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 751.441 ; gain = 458.383
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 752.074 ; gain = 459.250
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 751.441 ; gain = 458.383
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'Ps2Interface'
 INFO: [Synth 8-5546] ROM "reset_bit_count" won't be mapped to RAM because it is too sparse
@@ -357,7 +352,7 @@ WARNING: [Synth 8-327] inferring latch for variable 'freq_div_nxt_reg' [C:/Users
 WARNING: [Synth 8-327] inferring latch for variable 'ypos_mach_nxt_reg' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/draw_rect_ctl.v:91]
 WARNING: [Synth 8-327] inferring latch for variable 'ADD_reg' [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/draw_rect_ctl.v:71]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:30 ; elapsed = 00:00:30 . Memory (MB): peak = 752.074 ; gain = 459.250
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 751.441 ; gain = 458.383
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -374,13 +369,15 @@ Detailed RTL Component Info :
 	   2 Input     30 Bit       Adders := 1     
 	   2 Input     26 Bit       Adders := 1     
 	   2 Input     24 Bit       Adders := 1     
-	   2 Input     13 Bit       Adders := 4     
+	   3 Input     14 Bit       Adders := 2     
+	   2 Input     13 Bit       Adders := 2     
 	   3 Input     13 Bit       Adders := 2     
 	   2 Input     12 Bit       Adders := 9     
 	   3 Input     12 Bit       Adders := 1     
 	   2 Input     11 Bit       Adders := 1     
 	   2 Input      8 Bit       Adders := 1     
 	   2 Input      7 Bit       Adders := 1     
+	   3 Input      6 Bit       Adders := 2     
 	   2 Input      4 Bit       Adders := 3     
 	   3 Input      4 Bit       Adders := 2     
 +---Registers : 
@@ -404,7 +401,7 @@ Detailed RTL Component Info :
 	   2 Input     30 Bit        Muxes := 2     
 	   2 Input     26 Bit        Muxes := 1     
 	   2 Input     24 Bit        Muxes := 1     
-	   2 Input     12 Bit        Muxes := 18    
+	   2 Input     12 Bit        Muxes := 19    
 	   4 Input     12 Bit        Muxes := 2     
 	   3 Input     12 Bit        Muxes := 3     
 	   2 Input     11 Bit        Muxes := 1     
@@ -539,12 +536,13 @@ Detailed RTL Component Info :
 Module draw_rect 
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     13 Bit       Adders := 2     
+	   3 Input     14 Bit       Adders := 2     
+	   3 Input      6 Bit       Adders := 2     
 +---Registers : 
 	               12 Bit    Registers := 4     
 	                1 Bit    Registers := 4     
 +---Muxes : 
-	   2 Input     12 Bit        Muxes := 1     
+	   2 Input     12 Bit        Muxes := 2     
 Module image_rom 
 Detailed RTL Component Info : 
 +---Registers : 
@@ -603,38 +601,6 @@ DSP Report: operator ypos_mach_nxt3 is absorbed into DSP ypos_mach_nxt3.
 DSP Report: operator ypos_mach_nxt3 is absorbed into DSP ypos_mach_nxt3.
 INFO: [Synth 8-5546] ROM "vertical_blank_nxt" won't be mapped to RAM because it is too sparse
 WARNING: [Synth 8-6014] Unused sequential element my_image_rom/rgb_reg was removed.  [C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/rtl/image_rom.v:20]
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[0]' (FDSE) to 'my_MouseCtl/y_max_reg[1]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[1]' (FDSE) to 'my_MouseCtl/y_max_reg[2]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[2]' (FDSE) to 'my_MouseCtl/y_max_reg[3]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[3]' (FDSE) to 'my_MouseCtl/y_max_reg[4]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[4]' (FDSE) to 'my_MouseCtl/y_max_reg[5]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[5]' (FDSE) to 'my_MouseCtl/y_max_reg[6]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[6]' (FDSE) to 'my_MouseCtl/y_max_reg[7]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[7]' (FDSE) to 'my_MouseCtl/y_max_reg[8]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[8]' (FDSE) to 'my_MouseCtl/y_max_reg[9]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[9]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[10]' (FDRE) to 'my_MouseCtl/y_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[11]' (FDRE) to 'my_MouseCtl/x_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[0]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[1]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[2]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[3]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[4]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[5]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[6]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[7]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[8]' (FDRE) to 'my_MouseCtl/x_max_reg[11]'
-INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[9]' (FDRE) to 'my_MouseCtl/x_max_reg[11]'
-INFO: [Synth 8-3333] propagating constant 1 across sequential element (my_MouseCtl/\x_max_reg[10] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (my_MouseCtl/\x_max_reg[11] )
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[4]' (LD) to 'my_draw_rect_ctl/ADD_reg[5]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[5]' (LD) to 'my_draw_rect_ctl/ADD_reg[6]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[6]' (LD) to 'my_draw_rect_ctl/ADD_reg[7]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[7]' (LD) to 'my_draw_rect_ctl/ADD_reg[8]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[8]' (LD) to 'my_draw_rect_ctl/ADD_reg[9]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[9]' (LD) to 'my_draw_rect_ctl/ADD_reg[10]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[10]' (LD) to 'my_draw_rect_ctl/ADD_reg[11]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[11]' (LD) to 'my_draw_rect_ctl/ADD_reg[1]'
 INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/xpos_mach_reg[29]' (FDRE) to 'my_draw_rect_ctl/xpos_mach_reg[28]'
 INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ypos_mach_reg[29]' (FDRE) to 'my_draw_rect_ctl/xpos_mach_reg[28]'
 INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ypos_mach_reg[28]' (FDRE) to 'my_draw_rect_ctl/xpos_mach_reg[28]'
@@ -674,22 +640,42 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (my_draw_r
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (my_draw_rect_ctl/\ADD_reg[0] )
 INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[1]' (LD) to 'my_draw_rect_ctl/ADD_reg[2]'
 INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[2]' (LD) to 'my_draw_rect_ctl/ADD_reg[3]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[3]' (LD) to 'my_draw_rect_ctl/ADD_reg[4]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[4]' (LD) to 'my_draw_rect_ctl/ADD_reg[5]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[5]' (LD) to 'my_draw_rect_ctl/ADD_reg[6]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[6]' (LD) to 'my_draw_rect_ctl/ADD_reg[7]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[7]' (LD) to 'my_draw_rect_ctl/ADD_reg[8]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[8]' (LD) to 'my_draw_rect_ctl/ADD_reg[9]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[9]' (LD) to 'my_draw_rect_ctl/ADD_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_draw_rect_ctl/ADD_reg[10]' (LD) to 'my_draw_rect_ctl/ADD_reg[11]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[0]' (FDSE) to 'my_MouseCtl/y_max_reg[1]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[1]' (FDSE) to 'my_MouseCtl/y_max_reg[2]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[2]' (FDSE) to 'my_MouseCtl/y_max_reg[3]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[3]' (FDSE) to 'my_MouseCtl/y_max_reg[4]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[4]' (FDSE) to 'my_MouseCtl/y_max_reg[5]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[5]' (FDSE) to 'my_MouseCtl/y_max_reg[6]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[6]' (FDSE) to 'my_MouseCtl/y_max_reg[7]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[7]' (FDSE) to 'my_MouseCtl/y_max_reg[8]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[8]' (FDSE) to 'my_MouseCtl/y_max_reg[9]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[9]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[10]' (FDRE) to 'my_MouseCtl/y_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/y_max_reg[11]' (FDRE) to 'my_MouseCtl/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[0]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[1]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[2]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[3]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[4]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[5]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[6]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[7]' (FDSE) to 'my_MouseCtl/x_max_reg[10]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[8]' (FDRE) to 'my_MouseCtl/x_max_reg[11]'
+INFO: [Synth 8-3886] merging instance 'my_MouseCtl/x_max_reg[9]' (FDRE) to 'my_MouseCtl/x_max_reg[11]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (my_MouseCtl/\x_max_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (my_MouseCtl/\x_max_reg[11] )
 INFO: [Synth 8-3886] merging instance 'my_draw_background/rgb_out_reg[0]' (FDE) to 'my_draw_background/rgb_out_reg[2]'
 INFO: [Synth 8-3886] merging instance 'my_draw_background/rgb_out_reg[1]' (FDE) to 'my_draw_background/rgb_out_reg[2]'
 INFO: [Synth 8-3886] merging instance 'my_draw_background/rgb_out_reg[4]' (FDE) to 'my_draw_background/rgb_out_reg[5]'
 INFO: [Synth 8-3886] merging instance 'my_draw_background/rgb_out_reg[8]' (FDE) to 'my_draw_background/rgb_out_reg[9]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/my_signal_synchronizer/vcount_out_reg[0]' (FDR) to 'my_draw_rect/pixel_addr_reg[6]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/my_signal_synchronizer/vcount_out_reg[1]' (FDR) to 'my_draw_rect/pixel_addr_reg[7]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/my_signal_synchronizer/hcount_out_reg[0]' (FDR) to 'my_draw_rect/pixel_addr_reg[0]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/my_signal_synchronizer/hcount_out_reg[1]' (FDR) to 'my_draw_rect/pixel_addr_reg[1]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[2]' (FDR) to 'my_draw_rect/my_signal_synchronizer/hcount_out_reg[2]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[3]' (FDR) to 'my_draw_rect/my_signal_synchronizer/hcount_out_reg[3]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[4]' (FDR) to 'my_draw_rect/my_signal_synchronizer/hcount_out_reg[4]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[5]' (FDR) to 'my_draw_rect/my_signal_synchronizer/hcount_out_reg[5]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[8]' (FDR) to 'my_draw_rect/my_signal_synchronizer/vcount_out_reg[2]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[9]' (FDR) to 'my_draw_rect/my_signal_synchronizer/vcount_out_reg[3]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[10]' (FDR) to 'my_draw_rect/my_signal_synchronizer/vcount_out_reg[4]'
-INFO: [Synth 8-3886] merging instance 'my_draw_rect/pixel_addr_reg[11]' (FDR) to 'my_draw_rect/my_signal_synchronizer/vcount_out_reg[5]'
 INFO: [Synth 8-3886] merging instance 'my_draw_rect/my_signal_synchronizer/rgb_out_reg[0]' (FDR) to 'my_draw_rect/my_signal_synchronizer/rgb_out_reg[1]'
 INFO: [Synth 8-3886] merging instance 'my_draw_rect/my_signal_synchronizer/rgb_out_reg[1]' (FDR) to 'my_draw_rect/my_signal_synchronizer/rgb_out_reg[2]'
 INFO: [Synth 8-3886] merging instance 'my_draw_rect/my_signal_synchronizer/rgb_out_reg[4]' (FDR) to 'my_draw_rect/my_signal_synchronizer/rgb_out_reg[5]'
@@ -721,7 +707,7 @@ WARNING: [Synth 8-3332] Sequential element (ADD_reg[12]) is unused and will be r
 WARNING: [Synth 8-3332] Sequential element (ADD_reg[0]) is unused and will be removed from module draw_rect_ctl.
 WARNING: [Synth 8-3332] Sequential element (xpos_mach_reg[23]) is unused and will be removed from module draw_rect_ctl.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 752.074 ; gain = 459.250
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:41 . Memory (MB): peak = 751.441 ; gain = 458.383
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -762,13 +748,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:06 ; elapsed = 00:01:07 . Memory (MB): peak = 782.500 ; gain = 489.676
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:58 ; elapsed = 00:00:59 . Memory (MB): peak = 782.879 ; gain = 489.820
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:07 ; elapsed = 00:01:08 . Memory (MB): peak = 786.508 ; gain = 493.684
+Finished Timing Optimization : Time (s): cpu = 00:00:59 ; elapsed = 00:01:00 . Memory (MB): peak = 786.887 ; gain = 493.828
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -787,7 +773,7 @@ WARNING: [Synth 8-3332] Sequential element (my_position_memory/ypos_out_reg[11])
 INFO: [Synth 8-4480] The timing for the instance my_image_rom/rgb_reg_0 (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 INFO: [Synth 8-4480] The timing for the instance my_image_rom/rgb_reg_1 (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:08 ; elapsed = 00:01:10 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished Technology Mapping : Time (s): cpu = 00:01:01 ; elapsed = 00:01:02 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -811,7 +797,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:10 ; elapsed = 00:01:11 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished IO Insertion : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -824,7 +810,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:10 ; elapsed = 00:01:11 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -836,25 +822,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:10 ; elapsed = 00:01:11 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:03 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:10 ; elapsed = 00:01:11 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:03 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:10 ; elapsed = 00:01:11 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:03 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:10 ; elapsed = 00:01:11 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:03 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -865,9 +851,7 @@ Static Shift Register Report:
 |Module Name | RTL Name                   | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
 +------------+----------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
 |vga_example | my_draw_rect/vsync_out_reg | 4      | 1     | YES          | NO                 | YES               | 1      | 0       | 
-|vga_example | my_draw_rect/vblnk_out_reg | 4      | 1     | YES          | NO                 | YES               | 1      | 0       | 
 |vga_example | my_draw_rect/hsync_out_reg | 5      | 1     | YES          | NO                 | YES               | 1      | 0       | 
-|vga_example | my_draw_rect/hblnk_out_reg | 4      | 1     | YES          | NO                 | YES               | 1      | 0       | 
 +------------+----------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
 
 ---------------------------------------------------------------------------------
@@ -890,58 +874,59 @@ Report Cell Usage:
 |1     |BUFG       |     1|
 |2     |BUFGCE     |     2|
 |3     |BUFH       |     2|
-|4     |CARRY4     |   269|
+|4     |CARRY4     |   270|
 |5     |DSP48E1_1  |     2|
 |6     |DSP48E1_2  |     1|
-|7     |LUT1       |   102|
-|8     |LUT2       |   435|
-|9     |LUT3       |   362|
-|10    |LUT4       |   492|
-|11    |LUT5       |   187|
-|12    |LUT6       |   256|
+|7     |LUT1       |    92|
+|8     |LUT2       |   470|
+|9     |LUT3       |   352|
+|10    |LUT4       |   476|
+|11    |LUT5       |   199|
+|12    |LUT6       |   250|
 |13    |MMCME2_ADV |     1|
-|14    |MUXF7      |     8|
-|15    |ODDR       |     1|
-|16    |RAMB18E1   |     1|
-|17    |RAMB36E1   |     1|
-|18    |SRL16E     |     4|
-|19    |FDCE       |    51|
-|20    |FDPE       |     3|
-|21    |FDRE       |   479|
-|22    |FDSE       |    13|
-|23    |LD         |    79|
-|24    |IBUF       |     2|
-|25    |IOBUF      |     2|
-|26    |OBUF       |    15|
+|14    |MUXF7      |    10|
+|15    |MUXF8      |     1|
+|16    |ODDR       |     1|
+|17    |RAMB18E1   |     1|
+|18    |RAMB36E1   |     1|
+|19    |SRL16E     |     2|
+|20    |FDCE       |    51|
+|21    |FDPE       |     3|
+|22    |FDRE       |   495|
+|23    |FDSE       |    13|
+|24    |LD         |    79|
+|25    |IBUF       |     2|
+|26    |IOBUF      |     2|
+|27    |OBUF       |    15|
 +------+-----------+------+
 
 Report Instance Areas: 
 +------+----------------------------+----------------------+------+
 |      |Instance                    |Module                |Cells |
 +------+----------------------------+----------------------+------+
-|1     |top                         |                      |  2771|
+|1     |top                         |                      |  2794|
 |2     |  my_MouseDisplay           |MouseDisplay          |    21|
-|3     |  my_MouseCtl               |MouseCtl              |   606|
-|4     |    Inst_Ps2Interface       |Ps2Interface          |   284|
+|3     |  my_MouseCtl               |MouseCtl              |   605|
+|4     |    Inst_Ps2Interface       |Ps2Interface          |   283|
 |5     |  my_clk_generator          |clk_generator         |    24|
-|6     |  my_draw_background        |draw_background       |    33|
-|7     |  my_draw_rect              |draw_rect             |   239|
-|8     |    my2_signal_synchronizer |signal_synchronizer   |    88|
-|9     |    my_signal_synchronizer  |signal_synchronizer_0 |    33|
-|10    |  my_draw_rect_ctl          |draw_rect_ctl         |  1326|
+|6     |  my_draw_background        |draw_background       |    51|
+|7     |  my_draw_rect              |draw_rect             |   270|
+|8     |    my2_signal_synchronizer |signal_synchronizer   |   106|
+|9     |    my_signal_synchronizer  |signal_synchronizer_0 |    37|
+|10    |  my_draw_rect_ctl          |draw_rect_ctl         |  1283|
 |11    |  my_image_rom              |image_rom             |     2|
 |12    |  my_internal_reset         |internal_reset        |     2|
-|13    |  my_position_memory        |position_memory       |    24|
+|13    |  my_position_memory        |position_memory       |    42|
 |14    |  my_timing                 |vga_timing            |   281|
 +------+----------------------------+----------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:10 ; elapsed = 00:01:11 . Memory (MB): peak = 810.195 ; gain = 517.371
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:03 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 47 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:54 ; elapsed = 00:01:05 . Memory (MB): peak = 810.195 ; gain = 202.375
-Synthesis Optimization Complete : Time (s): cpu = 00:01:10 ; elapsed = 00:01:12 . Memory (MB): peak = 810.195 ; gain = 517.371
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:46 ; elapsed = 00:00:58 . Memory (MB): peak = 809.574 ; gain = 202.527
+Synthesis Optimization Complete : Time (s): cpu = 00:01:03 ; elapsed = 00:01:04 . Memory (MB): peak = 809.574 ; gain = 516.516
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 369 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 373 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
@@ -952,10 +937,10 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   LD => LDCE: 79 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-243 Infos, 54 Warnings, 0 Critical Warnings and 0 Errors encountered.
+231 Infos, 52 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:12 ; elapsed = 00:01:14 . Memory (MB): peak = 810.195 ; gain = 530.898
+synth_design: Time (s): cpu = 00:01:06 ; elapsed = 00:01:07 . Memory (MB): peak = 809.574 ; gain = 530.043
 INFO: [Common 17-1381] The checkpoint 'C:/Users/dawid/Desktop/Studia/Basys3_Screen_controllingby_VGA/LAB_4/build/vga_example.runs/synth_1/vga_example.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file vga_example_utilization_synth.rpt -pb vga_example_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.046 . Memory (MB): peak = 810.195 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Thu Apr  8 14:20:49 2021...
+report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.045 . Memory (MB): peak = 809.574 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue Apr 13 18:07:23 2021...

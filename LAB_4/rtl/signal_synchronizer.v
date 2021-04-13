@@ -11,25 +11,26 @@
 // using Verilog-2001 syntax.
 
 module signal_synchronizer (
-  input   wire pclk,
-  input   wire rst,
+        input   wire pclk,
+        input   wire rst,
+        
 
-  input   wire [11:0] vcount_in,
-  input   wire vsync_in, 
-  input   wire vblnk_in, 
-  input   wire [11:0] hcount_in,
-  input   wire hsync_in, 
-  input   wire hblnk_in, 
-  input   wire [11:0] rgb_in,
+        input   wire [11:0] vcount_in,
+        input   wire vsync_in, 
+        input   wire vblnk_in, 
+        input   wire [11:0] hcount_in,
+        input   wire hsync_in, 
+        input   wire hblnk_in, 
+        input   wire [11:0] rgb_in,
 
-  output  reg [11:0] vcount_out,
-  output  reg vsync_out, 
-  output  reg vblnk_out, 
-  output  reg [11:0] hcount_out,
-  output  reg hsync_out, 
-  output  reg hblnk_out, 
-  output  reg [11:0] rgb_out
-  );
+        output  reg [11:0] vcount_out,
+        output  reg vsync_out, 
+        output  reg vblnk_out, 
+        output  reg [11:0] hcount_out,
+        output  reg hsync_out, 
+        output  reg hblnk_out, 
+        output  reg [11:0] rgb_out
+        );
 
         always @(posedge pclk) begin
                 // pass these through if rst not activ then put 0 on the output.
@@ -41,8 +42,7 @@ module signal_synchronizer (
                         hsync_out  <= 1'b0;
                         hblnk_out  <= 1'b0; 
                         rgb_out    <= 12'h0_0_0;
-                end
-                else begin
+                end else begin
                         vcount_out <= vcount_in;
                         hcount_out <= hcount_in;
 
@@ -52,6 +52,7 @@ module signal_synchronizer (
                         vblnk_out  <= vblnk_in; 
                         hblnk_out  <= hblnk_in;
                         rgb_out    <= rgb_in;
+                        
 
                 end
         end

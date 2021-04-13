@@ -11,18 +11,17 @@
 // using Verilog-2001 syntax.
 
 module internal_reset (
-    input   wire pclk,
-    input   wire locked,
-    output  reg  reset_out
-    );
+        input   wire pclk,
+        input   wire locked,
+        output  reg  reset_out
+        );
 
 
-    always @(negedge pclk or negedge locked) 
-        begin
-            if(!locked)
-                reset_out <= 1'b1;
-            else 
-                reset_out <= 1'b0;
+        always @(negedge pclk or negedge locked) begin
+                if(!locked)
+                        reset_out <= 1'b1;
+                else 
+                        reset_out <= 1'b0;
         end
 
     /*reg  reset_out_nxt;
@@ -59,4 +58,3 @@ module internal_reset (
 
         end */
 endmodule
-
