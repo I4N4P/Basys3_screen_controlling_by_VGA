@@ -1,4 +1,4 @@
-// File: draw_rect.v
+// File: draw_rect_ctl.v
 // This module draw a rectangle on the backround.
 
 // The `timescale directive specifies what the
@@ -110,12 +110,12 @@ module draw_rect_ctl (
                 DRAW_RECT_RIGHT : begin
                         if (xpos_tmp == 752) 
                                forward_nxt = 1'b0;
-                       else 
+                        else 
                                forward_nxt = forward;    
 
                         if(freq_div == 1_000_000) begin 
                                 xpos_mach_nxt = xpos_mach + 1;
-                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
+                                //ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
                                 freq_div_nxt = 0;
                         end else begin
                                 xpos_tmp  = xpos_mach[11:0];
@@ -126,12 +126,12 @@ module draw_rect_ctl (
                 DRAW_RECT_LEFT : begin
                         if (xpos_tmp == 0) 
                                forward_nxt = 1'b1;
-                       else 
+                        else 
                                forward_nxt = forward;  
 
                         if(freq_div == 1_000_000) begin 
                                 xpos_mach_nxt = xpos_mach - 1;
-                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
+                                //ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
                                 freq_div_nxt = 0;
                         end else begin
                                 xpos_tmp  = xpos_mach[11:0];
