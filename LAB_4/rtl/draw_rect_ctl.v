@@ -23,19 +23,31 @@ module draw_rect_ctl (
 
         );
 
-        localparam PASS_THROUGH    = 2'b00;
-        localparam RESET           = 2'b01;
-        localparam DRAW_RECT_LEFT  = 2'b10;
-        localparam DRAW_RECT_RIGHT = 2'b11;
+        localparam PASS_THROUGH         = 3'b000;
+        localparam RESET                = 3'b001;
+        localparam DRAW_RECT_LEFT_UP    = 3'b010;
+        localparam DRAW_RECT_LEFT_DOWN  = 3'b011;
+        localparam DRAW_RECT_RIGHT_UP   = 3'b100;
+        localparam DRAW_RECT_RIGHT_DOWN = 3'b101;
+
+        localparam WAIT_TIME = 4_000_00;
+        localparam MIDDLE = 376;
+
+        reg [9:0] right_corner = 752,right_corner_nxt;
+        reg [9:0] left_corner = 0,left_corner_nxt;
         
         reg forward,forward_nxt = 1'b1;
+        reg up,up_nxt = 1'b0;
 
-        reg[1:0] state,state_nxt;
+        reg[3:0] state,state_nxt;
 
         reg [29:0] freq_div = 0,freq_div_nxt = 0;
         reg [11:0] ypos_tmp = 0,xpos_tmp = 0;
         reg [11:0] xpos_mach = 0,ypos_mach = 0,xpos_mach_nxt = 0,ypos_mach_nxt = 0;
         
+        reg [11:0] multi,multi_nxt = 1;
+        reg [23:0] wait_time,wait_time_nxt = 4_000_00;
+
         // state register
         
         always @(posedge pclk) begin
@@ -52,23 +64,51 @@ module draw_rect_ctl (
                 RESET :         
                         if(rst)
                                 state_nxt = RESET;
-                        else if (mouse_left)
-                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                        else if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
                         else
                                 state_nxt = PASS_THROUGH;
-                DRAW_RECT_LEFT :    
+                DRAW_RECT_LEFT_UP :    
                         if(mouse_left)
-                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
                         else
                                 state_nxt = PASS_THROUGH;
-                DRAW_RECT_RIGHT :    
+                DRAW_RECT_LEFT_DOWN :    
                         if(mouse_left)
-                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_RIGHT_UP :    
+                        if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_RIGHT_DOWN :    
+                        if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
                         else
                                 state_nxt = PASS_THROUGH;
                 PASS_THROUGH :  
                         if(mouse_left)
-                                state_nxt = forward ? DRAW_RECT_RIGHT : DRAW_RECT_LEFT;
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
                         else
                                 state_nxt = PASS_THROUGH;
                 default :       state_nxt = PASS_THROUGH;
@@ -84,7 +124,10 @@ module draw_rect_ctl (
                 xpos_mach  <= xpos_mach_nxt;
                 ypos_mach  <= ypos_mach_nxt;
                 freq_div   <= freq_div_nxt;
-                forward    <= forward_nxt;  
+                forward    <= forward_nxt;
+                multi      <= multi_nxt;
+                wait_time  <= wait_time_nxt;  
+                up         <= up_nxt;  
         end
 
         // output combinational logic
@@ -96,8 +139,10 @@ module draw_rect_ctl (
                 forward_nxt     = forward;
                 ypos_tmp        = ypos_mach[11:0];
                 xpos_tmp        = xpos_mach[11:0];
-                freq_div_nxt    = freq_div; 
-
+                freq_div_nxt    = freq_div;
+                multi_nxt       = multi; 
+                wait_time_nxt   = wait_time;
+                up_nxt          = up;
                 case (state) 
                 RESET : begin         
                         xpos_tmp      = 12'b0;
@@ -105,17 +150,21 @@ module draw_rect_ctl (
                         xpos_mach_nxt = 30'b0;
                         ypos_mach_nxt = 30'b0;
                         forward_nxt   = 1'b1;
-                        freq_div_nxt  = 30'b0;  
+                        freq_div_nxt  = 30'b0; 
+                        multi_nxt     = 1;
+                        wait_time_nxt = 4_000_00; 
+                        up_nxt        = 1'b0;
                 end
-                DRAW_RECT_RIGHT : begin
-                        if (xpos_tmp == 752) 
-                               forward_nxt = 1'b0;
+                DRAW_RECT_RIGHT_DOWN : begin
+                        if (xpos_tmp == MIDDLE) 
+                               up_nxt = 1'b1;
                         else 
-                               forward_nxt = forward;    
+                               up_nxt = up;    
 
-                        if(freq_div == 1_000_000) begin 
+                        if(freq_div == wait_time) begin
+                                wait_time_nxt = wait_time-500;
                                 xpos_mach_nxt = xpos_mach + 1;
-                                //ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
+                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
                                 freq_div_nxt = 0;
                         end else begin
                                 xpos_tmp  = xpos_mach[11:0];
@@ -123,15 +172,53 @@ module draw_rect_ctl (
                                 freq_div_nxt = freq_div + 1;
                         end        
                 end
-                DRAW_RECT_LEFT : begin
-                        if (xpos_tmp == 0) 
-                               forward_nxt = 1'b1;
+                DRAW_RECT_RIGHT_UP : begin
+                        if (xpos_tmp == right_corner) begin
+                                forward_nxt = 1'b0;
+                                up_nxt = 1'b0;
+                        end else begin 
+                               forward_nxt = forward;
+                               up_nxt = up;     
+                        end
+                        if(freq_div == wait_time) begin
+                                wait_time_nxt = wait_time+500;
+                                xpos_mach_nxt = xpos_mach + 1;
+                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
+                                freq_div_nxt = 0;
+                        end else begin
+                                xpos_tmp  = xpos_mach[11:0];
+                                ypos_tmp  = ypos_mach[11:0];
+                                freq_div_nxt = freq_div + 1;
+                        end        
+                end
+                DRAW_RECT_LEFT_DOWN : begin
+                        if (xpos_tmp == MIDDLE) 
+                               up_nxt = 1'b1;
                         else 
-                               forward_nxt = forward;  
-
-                        if(freq_div == 1_000_000) begin 
+                               up_nxt = up;  
+                        if(freq_div == wait_time) begin 
+                                wait_time_nxt = wait_time-500;
                                 xpos_mach_nxt = xpos_mach - 1;
-                                //ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
+                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
+                                freq_div_nxt = 0;
+                        end else begin
+                                xpos_tmp  = xpos_mach[11:0];
+                                ypos_tmp  = ypos_mach[11:0];
+                                freq_div_nxt = freq_div + 1;
+                        end        
+                end
+                DRAW_RECT_LEFT_UP : begin
+                        if (xpos_tmp == left_corner) begin
+                                forward_nxt = 1'b1;
+                                up_nxt = 1'b0;
+                        end else begin 
+                               forward_nxt = forward;
+                               up_nxt = up;     
+                        end
+                        if(freq_div == wait_time) begin
+                                wait_time_nxt = wait_time+500;
+                                xpos_mach_nxt = xpos_mach - 1;
+                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
                                 freq_div_nxt = 0;
                         end else begin
                                 xpos_tmp  = xpos_mach[11:0];
