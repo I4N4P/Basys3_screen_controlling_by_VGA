@@ -194,7 +194,7 @@ begin
    end process x_diff;
 
    -- compute ydiff
-   y_diff: process(vcount, xpos)
+   y_diff: process(vcount, xpos, ypos)
    variable temp_diff: std_logic_vector(11 downto 0) := (others => '0');
    begin
          temp_diff := vcount - ypos;
