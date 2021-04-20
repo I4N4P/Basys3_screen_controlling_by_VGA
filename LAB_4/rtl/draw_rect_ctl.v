@@ -37,12 +37,13 @@ module draw_rect_ctl (
 
         reg [2:0] state,state_nxt; 
 
-        reg [9:0] right_cor,right_cor_nxt = 752;
+        reg [9:0] right_cor,right_cor_nxt = 750;
         reg [9:0] left_cor,left_cor_nxt = 0;
         reg [9:0] multi,multi_nxt = 750;
 
         reg [11:0] ypos_tmp,xpos_tmp = 0;
         reg [11:0] xpos_mach,ypos_mach,xpos_mach_nxt = 0,ypos_mach_nxt = 0;
+        reg [11:0] ypos_mach1,ypos_mach2,ypos_mach1_nxt = 0,ypos_mach2_nxt = 0;
         
         reg [18:0] wait_time,wait_time_nxt = 400_000;
 
@@ -123,6 +124,8 @@ module draw_rect_ctl (
                 xpos       <= xpos_tmp;
                 xpos_mach  <= xpos_mach_nxt;
                 ypos_mach  <= ypos_mach_nxt;
+                ypos_mach1 <= ypos_mach1_nxt;
+                ypos_mach2 <= ypos_mach2_nxt;
                 freq_div   <= freq_div_nxt;
                 forward    <= forward_nxt;
                 multi      <= multi_nxt;
@@ -138,6 +141,8 @@ module draw_rect_ctl (
 
                 xpos_mach_nxt   = xpos_mach;
                 ypos_mach_nxt   = ypos_mach;
+                ypos_mach1_nxt  = ypos_mach1;
+                ypos_mach2_nxt  = ypos_mach2;
                 forward_nxt     = forward;
                 ypos_tmp        = ypos_mach;
                 xpos_tmp        = xpos_mach;
@@ -147,20 +152,22 @@ module draw_rect_ctl (
                 up_nxt          = up;
                 right_cor_nxt   = right_cor;
                 left_cor_nxt    = left_cor;
+
                 case (state) 
                 RESET : begin         
-                        forward_nxt   = 1'b1;
-                        up_nxt        = 1'b0;
-                        right_cor_nxt = 752;
-                        left_cor_nxt  = 0; 
-                        multi_nxt     = 750;
-                        xpos_tmp      = 12'b0;
-                        ypos_tmp      = 12'b0;
-                        xpos_mach_nxt = 12'b0;
-                        ypos_mach_nxt = 12'b0;
-                        freq_div_nxt  = 30'b0;
-                        wait_time_nxt = 400_000; 
-
+                        forward_nxt    = 1'b1;
+                        up_nxt         = 1'b0;
+                        right_cor_nxt  = 750;
+                        left_cor_nxt   = 0; 
+                        multi_nxt      = 750;
+                        xpos_tmp       = 12'b0;
+                        ypos_tmp       = 12'b0;
+                        xpos_mach_nxt  = 12'b0;
+                        ypos_mach_nxt  = 12'b0;
+                        ypos_mach1_nxt = 12'b0;
+                        ypos_mach2_nxt = 12'b0;
+                        freq_div_nxt   = 30'b0;
+                        wait_time_nxt  = 400_000; 
                 end
                 DRAW_RECT_RIGHT_DOWN : begin
                         if (xpos_tmp >= MIDDLE)
@@ -168,10 +175,12 @@ module draw_rect_ctl (
                         else  
                                 up_nxt = up;          
                         if(freq_div == wait_time) begin
-                                wait_time_nxt = wait_time - multi;
-                                xpos_mach_nxt = xpos_mach + 1;
-                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
-                                freq_div_nxt  = 0;
+                                wait_time_nxt  = wait_time - multi;
+                                xpos_mach_nxt  = xpos_mach + 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
                         end else begin
                                 xpos_tmp      = xpos_mach;
                                 ypos_tmp      = ypos_mach;
@@ -189,10 +198,12 @@ module draw_rect_ctl (
                                 right_cor_nxt  = right_cor; 
                         end
                         if(freq_div == wait_time) begin
-                                wait_time_nxt = wait_time + multi;
-                                xpos_mach_nxt = xpos_mach + 1;
-                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
-                                freq_div_nxt  = 0;
+                                wait_time_nxt  = wait_time + multi;
+                                xpos_mach_nxt  = xpos_mach + 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
                         end else begin
                                 xpos_tmp      = xpos_mach;
                                 ypos_tmp      = ypos_mach;
@@ -205,10 +216,12 @@ module draw_rect_ctl (
                         else 
                                 up_nxt = up;  
                         if(freq_div == wait_time) begin 
-                                wait_time_nxt = wait_time - multi;
-                                xpos_mach_nxt = xpos_mach - 1;
-                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
-                                freq_div_nxt  = 0;
+                                wait_time_nxt  = wait_time - multi;
+                                xpos_mach_nxt  = xpos_mach - 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
                         end else begin
                                 xpos_tmp      = xpos_mach;
                                 ypos_tmp      = ypos_mach;
@@ -219,17 +232,19 @@ module draw_rect_ctl (
                         if (xpos_tmp <= left_cor) begin
                                 forward_nxt = 1'b1;
                                 up_nxt = 1'b0;
-                                left_cor_nxt = 740 - right_cor;
+                                left_cor_nxt = 770 - right_cor;
                         end else begin 
                                 forward_nxt  = forward;
                                 up_nxt       = up; 
                                 left_cor_nxt = left_cor;    
                         end
                         if(freq_div == wait_time) begin
-                                wait_time_nxt = wait_time + multi;
-                                xpos_mach_nxt = xpos_mach - 1;
-                                ypos_mach_nxt = (((284 * xpos_mach) / 100) - ((378*(xpos_mach * xpos_mach)) / 100_000));
-                                freq_div_nxt  = 0;
+                                wait_time_nxt  = wait_time + multi;
+                                xpos_mach_nxt  = xpos_mach - 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
                         end else begin
                                 xpos_tmp      = xpos_mach;
                                 ypos_tmp      = ypos_mach;

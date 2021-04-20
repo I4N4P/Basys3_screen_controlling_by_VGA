@@ -63,7 +63,7 @@ module draw_rect_ctl_test;
 
   initial  
   begin
-          rst = 1'b0;
+        rst = 1'b0;
     $display("If simulation ends before the testbench");
     $display("completes, use the menu option to run all.");
     $display("Prepare to wait a long time...");

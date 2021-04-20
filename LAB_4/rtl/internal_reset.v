@@ -29,7 +29,7 @@ module internal_reset (
         end
 
         always @* begin
-                if (counter < 100) begin
+                if (counter < 10) begin
                         counter_nxt = counter + 1;
                         reset_nxt = 1'b1;
                 end else begin

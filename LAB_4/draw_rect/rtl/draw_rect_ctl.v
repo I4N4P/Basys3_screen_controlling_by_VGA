@@ -1,4 +1,4 @@
-// File: draw_rect.v
+// File: draw_rect_ctl.v
 // This module draw a rectangle on the backround.
 
 // The `timescale directive specifies what the
@@ -11,120 +11,254 @@
 // using Verilog-2001 syntax.
 
 module draw_rect_ctl (
-  input   wire pclk,
-  input   wire rst,
+        input   wire pclk,
+        input   wire rst,
+        
+        input   wire mouse_left,
+        input   wire[11:0] mouse_xpos,
+        input   wire[11:0] mouse_ypos,
 
-  input   wire[11:0] mouse_xpos,
-  input   wire[11:0] mouse_ypos,
-  input   wire mouse_left, 
+        output  reg [11:0] xpos,
+        output  reg [11:0] ypos
 
-  output  reg [11:0] xpos,
-  output  reg [11:0] ypos
+        );
 
-  );
+        localparam PASS_THROUGH         = 3'b000;
+        localparam RESET                = 3'b001;
+        localparam DRAW_RECT_LEFT_UP    = 3'b010;
+        localparam DRAW_RECT_LEFT_DOWN  = 3'b011;
+        localparam DRAW_RECT_RIGHT_UP   = 3'b100;
+        localparam DRAW_RECT_RIGHT_DOWN = 3'b101;
 
-  localparam IDDLE       = 0'b00;
-  localparam RESET       = 0'b01;
-  localparam MOUSE_DOWN  = 0'b10;
-  localparam MOUSE_UP    = 0'b11;
+        localparam MIDDLE = 376;
 
-  localparam S1 = 2.0**-9.0;
-  localparam S2 = 2.0**-10.0;
-  localparam S3 = 2.0**-11.0;
-  localparam S4 = 2.0**-12.0;
-  localparam S5 = 2.0**-13.0;
-  localparam SF = (-1)*(S1+S2+S3+S4+S5);
-  
-  localparam S6 = 2.0**-1.0;
-  localparam S7 = 2.0**-2.0;
-  localparam S8 = 2.0**-4.0;
-  localparam S9 = 2.0**-5.0;
-  localparam S10 = 2.0;
-  localparam SF2 = S6+S7+S8+S9+S10;
-  
-  
-  
- reg[20:0] ADD = 1;
-  
+        reg forward,forward_nxt = 1'b1;
+        reg up,up_nxt = 1'b0; 
 
- reg[1:0] state,state_nxt;
+        reg [2:0] state,state_nxt; 
 
- reg [29:0] xpos_nxt = 0,ypos_nxt = 0;
- reg [20:0] ypos_tmp = 0,xpos_tmp = 0;
- reg mouse_left_nxt = 0;
-  
-  // state register
-  
- always @(posedge pclk) 
-        begin
+        reg [9:0] right_cor,right_cor_nxt = 750;
+        reg [9:0] left_cor,left_cor_nxt = 0;
+        reg [9:0] multi,multi_nxt = 1;
+
+        reg [11:0] ypos_tmp,xpos_tmp = 0;
+        reg [11:0] xpos_mach,ypos_mach,xpos_mach_nxt = 0,ypos_mach_nxt = 0;
+        reg [11:0] ypos_mach1,ypos_mach2,ypos_mach1_nxt = 0,ypos_mach2_nxt = 0;
+        
+        reg [18:0] wait_time,wait_time_nxt = 400;
+
+        reg [29:0] freq_div,freq_div_nxt = 0;
+
+        // state register
+        
+        always @(posedge pclk) begin
                 if(rst)
                         state <= RESET;
                 else
-                        state <= state_nxt;
+                        state <= state_nxt;        
         end
-  // next state logic
- always @(state or rst or mouse_left) 
-        begin
+
+        // next state logic
+
+        always @(state or rst or mouse_left or forward or up) begin
                 case(state)
-                        IDDLE :         state_nxt = mouse_left ? MOUSE_DOWN : MOUSE_UP;
-                        RESET :         state_nxt = rst ? RESET : IDDLE;
-                        MOUSE_DOWN :    state_nxt = mouse_left ? MOUSE_DOWN : IDDLE;
-                        MOUSE_UP :      state_nxt = mouse_left ? IDDLE : MOUSE_UP;
-                        default :       state_nxt = IDDLE;
+                RESET :         
+                        if(rst)
+                                state_nxt = RESET;
+                        else if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_LEFT_UP :    
+                        if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_LEFT_DOWN :    
+                        if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_RIGHT_UP :    
+                        if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                DRAW_RECT_RIGHT_DOWN :    
+                        if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                PASS_THROUGH :  
+                        if(mouse_left)
+                                if(up)
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_UP : DRAW_RECT_LEFT_UP;
+                                else 
+                                        state_nxt = forward ? DRAW_RECT_RIGHT_DOWN : DRAW_RECT_LEFT_DOWN;  
+                        else
+                                state_nxt = PASS_THROUGH;
+                default :       state_nxt = PASS_THROUGH;
                 endcase
-        end 
-  // output logic      
- always @* 
-        begin
-                //xpos  = xpos_nxt;
-                //ypos  = ypos_nxt; 
-                xpos_nxt = xpos_nxt;
-                ADD = ADD;
-                xpos_tmp  = xpos_tmp;
-                ypos_tmp  = ypos_tmp;
 
-                case(state)
-                        RESET :         
-                                begin
-                                      xpos  = 12'b0;
-                                      ypos  = 12'b0;  
-                                end
-                        MOUSE_DOWN :    
-                                begin
-                                        if(xpos_nxt >= 400000000) begin
-                                                /*if (xpos_tmp == 752) 
-                                                        ADD = -1;//{1'b1,ADD[19:0]};
-                                                else if (xpos_tmp == 0)
-                                                        ADD = 1;//{1'b0,ADD[19:0]};
-                                                else 
-                                                        ADD = ADD;*/
-                                                xpos_tmp  = xpos_tmp+1; 
-                                                //ypos_tmp  = ypos_tmp;
-                                                //ypos_tmp  = (SF)*(xpos_tmp*xpos_tmp) + (SF2*(xpos_tmp));;
-                                                xpos_nxt = 0;
-                                        end else begin
-                                                xpos_tmp  = xpos_tmp;
-                                                //ypos_tmp  = ypos_tmp;
-                                                //ADD = ADD;
-                                                xpos_nxt = xpos_nxt+1;
-                                        end
-                                        xpos      = xpos_tmp[11:0];
-                                        ypos      = ypos_tmp[11:0];
+        end  
 
-                                end
-                        MOUSE_UP :      
-                                begin
-                                      xpos  = mouse_xpos;
-                                      ypos  = mouse_ypos;  
-                                end
-                        default : 
-                                begin
-                                      xpos  = mouse_xpos;
-                                      ypos  = mouse_ypos;  
-                                end
+        // output sequential logic 
+  
+        always @(posedge pclk) begin
+                ypos       <= ypos_tmp;
+                xpos       <= xpos_tmp;
+                xpos_mach  <= xpos_mach_nxt;
+                ypos_mach  <= ypos_mach_nxt;
+                ypos_mach1 <= ypos_mach1_nxt;
+                ypos_mach2 <= ypos_mach2_nxt;
+                freq_div   <= freq_div_nxt;
+                forward    <= forward_nxt;
+                multi      <= multi_nxt;
+                wait_time  <= wait_time_nxt;  
+                up         <= up_nxt;  
+                right_cor  <= right_cor_nxt;
+                left_cor   <= left_cor_nxt;
+        end
+
+        // output combinational logic
+
+        always @* begin
+
+                xpos_mach_nxt   = xpos_mach;
+                ypos_mach_nxt   = ypos_mach;
+                ypos_mach1_nxt  = ypos_mach1;
+                ypos_mach2_nxt  = ypos_mach2;
+                forward_nxt     = forward;
+                ypos_tmp        = ypos_mach;
+                xpos_tmp        = xpos_mach;
+                freq_div_nxt    = freq_div;
+                multi_nxt       = multi; 
+                wait_time_nxt   = wait_time;
+                up_nxt          = up;
+                right_cor_nxt   = right_cor;
+                left_cor_nxt    = left_cor;
+                
+                case (state) 
+                RESET : begin         
+                        forward_nxt    = 1'b1;
+                        up_nxt         = 1'b0;
+                        right_cor_nxt  = 750;
+                        left_cor_nxt   = 0; 
+                        multi_nxt      = 1;
+                        xpos_tmp       = 12'b0;
+                        ypos_tmp       = 12'b0;
+                        xpos_mach_nxt  = 12'b0;
+                        ypos_mach_nxt  = 12'b0;
+                        ypos_mach1_nxt = 12'b0;
+                        ypos_mach2_nxt = 12'b0;
+                        freq_div_nxt   = 30'b0;
+                        wait_time_nxt  = 400; 
+                end
+                DRAW_RECT_RIGHT_DOWN : begin
+                        if (xpos_tmp >= MIDDLE)
+                                up_nxt = 1'b1;
+                        else  
+                                up_nxt = up;          
+                        if(freq_div == wait_time) begin
+                                wait_time_nxt  = wait_time - multi;
+                                xpos_mach_nxt  = xpos_mach + 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
+                        end else begin
+                                xpos_tmp      = xpos_mach;
+                                ypos_tmp      = ypos_mach;
+                                freq_div_nxt  = freq_div + 1;
+                        end        
+                end
+                DRAW_RECT_RIGHT_UP : begin
+                        if (xpos_tmp >= right_cor) begin
+                                forward_nxt   = 1'b0;
+                                up_nxt        = 1'b0;
+                                right_cor_nxt = ((right_cor * 95) / 100);
+                        end else begin 
+                                forward_nxt    = forward;
+                                up_nxt         = up;    
+                                right_cor_nxt  = right_cor; 
+                        end
+                        if(freq_div == wait_time) begin
+                                wait_time_nxt  = wait_time + multi;
+                                xpos_mach_nxt  = xpos_mach + 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
+                        end else begin
+                                xpos_tmp      = xpos_mach;
+                                ypos_tmp      = ypos_mach;
+                                freq_div_nxt  = freq_div + 1;
+                        end        
+                end
+                DRAW_RECT_LEFT_DOWN : begin
+                        if (xpos_tmp <= MIDDLE) 
+                                up_nxt = 1'b1;
+                        else 
+                                up_nxt = up;  
+                        if(freq_div == wait_time) begin 
+                                wait_time_nxt  = wait_time - multi;
+                                xpos_mach_nxt  = xpos_mach - 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
+                        end else begin
+                                xpos_tmp      = xpos_mach;
+                                ypos_tmp      = ypos_mach;
+                                freq_div_nxt  = freq_div + 1;
+                        end        
+                end
+                DRAW_RECT_LEFT_UP : begin
+                        if (xpos_tmp <= left_cor) begin
+                                forward_nxt = 1'b1;
+                                up_nxt = 1'b0;
+                                left_cor_nxt = 740 - right_cor;
+                        end else begin 
+                                forward_nxt  = forward;
+                                up_nxt       = up; 
+                                left_cor_nxt = left_cor;    
+                        end
+                        if(freq_div == wait_time) begin
+                                wait_time_nxt  = wait_time + multi;
+                                xpos_mach_nxt  = xpos_mach - 1;
+                                ypos_mach1_nxt = ((284 * xpos_mach) / 100); 
+                                ypos_mach2_nxt = ((378*(xpos_mach * xpos_mach)) / 100_000);
+                                ypos_mach_nxt  = ypos_mach1 - ypos_mach2;
+                                freq_div_nxt   = 0;
+                        end else begin
+                                xpos_tmp      = xpos_mach;
+                                ypos_tmp      = ypos_mach;
+                                freq_div_nxt  = freq_div + 1;
+                        end        
+                end
+                PASS_THROUGH : begin     
+                        xpos_tmp  = mouse_xpos;
+                        ypos_tmp  = mouse_ypos;
+                end  
+                default : begin
+                        xpos_tmp  = mouse_xpos;
+                        ypos_tmp  = mouse_ypos;
+                end
                 endcase    
         end
-
-
-
 endmodule

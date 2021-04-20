@@ -22,7 +22,7 @@ module draw_rect_ctl_tb (
   );
   
   reg [11:0] xpos_nxt = 0,ypos_nxt = 0;
-  reg [11:0] counter,counter_nxt = 0;
+  reg [20:0] counter,counter_nxt = 0;
   reg mouse_left_nxt = 0;
 
   // Synchronical logic
@@ -49,17 +49,23 @@ module draw_rect_ctl_tb (
   always @*
    begin
         counter_nxt = counter + 1;
+        
+        if(counter == 3000)
+            mouse_left_nxt = 1'b1;
+        else
+            mouse_left_nxt =  mouse_left;
         if(counter < 2000) begin
                 xpos_nxt =  12'b0 ;
                 ypos_nxt =  12'b0 ;
         end else if((counter > 2000) && (counter < 4000)) begin 
                 xpos_nxt =  mouse_xpos + 1 ;
-                ypos_nxt =  mouse_ypos + 1 ; 
-        end else if(counter == 4000) begin
+                ypos_nxt =  mouse_ypos + 1 ;          
+        end else if(counter == 800_000) begin
                 counter_nxt = 0;
                 mouse_left_nxt = 1'b0;
-        end else
-                mouse_left_nxt = !mouse_left;
+        end else begin
+                mouse_left_nxt = mouse_left;
+        end
    end
 
 endmodule
