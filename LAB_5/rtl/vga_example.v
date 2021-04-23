@@ -38,12 +38,15 @@ module vga_example (
 
         wire [3:0] red_out,green_out,blue_out;
 
-        wire [11:0] vcount, hcount,vcount_out_b, hcount_out_b,vcount_out, hcount_out;  // here is the change of the size of variable in order to mould with MouseDisplay
-        wire vsync, hsync,vsync_out_b, hsync_out_b, vsync_out, hsync_out;
-        wire vblnk, hblnk,vblnk_out_b, hblnk_out_b,vblnk_out, hblnk_out;
-        wire [11:0] rgb_out_b,rgb_out;
+        wire [11:0] vcount, hcount,vcount_out_b, hcount_out_b,vcount_out, hcount_out,vcount_out_d, hcount_out_d;  // here is the change of the size of variable in order to mould with MouseDisplay
+        wire vsync, hsync,vsync_out_b, hsync_out_b, vsync_out, hsync_out, vsync_out_d, hsync_out_d;
+        wire vblnk, hblnk,vblnk_out_b, hblnk_out_b,vblnk_out, hblnk_out,vblnk_out_d, hblnk_out_d;
+        wire [11:0] rgb_out_b,rgb_out,rgb_out_d;
 
         wire [11:0] rgb_pixel,pixel_addr;
+        
+        wire [10:0] char_addr;
+        wire [7:0]  char_pixel;
 
         wire blank;  
   
@@ -229,6 +232,7 @@ module vga_example (
                 .rgb_out(rgb_out),
                 .pixel_addr(pixel_addr)
         );
+
         image_rom my_image_rom
         (
                 .clk(pclk),
@@ -237,19 +241,51 @@ module vga_example (
                 .rgb(rgb_pixel)
         );
 
+        draw_rect_char my_draw_rect_char 
+        (
+                .pclk(pclk),
+                .rst(reset),
+
+                .vcount_in(vcount_out),
+                .vsync_in(vsync_out),
+                .vblnk_in(vblnk_out),
+                .hcount_in(hcount_out),
+                .hsync_in(hsync_out),
+                .hblnk_in(hblnk_out),
+                .rgb_in(rgb_out),
+                .char_pixel(char_pixel),
+
+                .vcount_out(vcount_out_d),
+                .vsync_out(vsync_out_d),
+                .vblnk_out(vblnk_out_d),
+                .hcount_out(hcount_out_d),
+                .hsync_out(hsync_out_d),
+                .hblnk_out(hblnk_out_d),
+                .rgb_out(rgb_out_d),
+                .char_addr(char_addr)
+        );
+
+        font_rom my_font_rom
+        (
+                .clk(pclk),
+        
+                .addr(char_addr),
+                .char_line_pixels(char_pixel)
+        );
+
         MouseDisplay my_MouseDisplay
         (
                 .pixel_clk(pclk),
                 .xpos(xpos_mem),
                 .ypos(ypos_mem),
 
-                .vcount(vcount_out),
+                .vcount(vcount_out_d),
                 .blank(blank),
-                .hcount(hcount_out),
+                .hcount(hcount_out_d),
 
-                .red_in(rgb_out[11:8]),
-                .green_in(rgb_out[7:4]),
-                .blue_in(rgb_out[3:0]),
+                .red_in(rgb_out_d[11:8]),
+                .green_in(rgb_out_d[7:4]),
+                .blue_in(rgb_out_d[3:0]),
 
                 .red_out(red_out),
                 .green_out(green_out),
@@ -262,8 +298,8 @@ module vga_example (
         // Synchronical logic
         always @(posedge pclk) begin
                 // signal is delayed since MouseDisplay exist and tiff sim does not work well.
-                hsync_out_M <= hsync_out;
-                vsync_out_M <= vsync_out;
+                hsync_out_M <= hsync_out_d;
+                vsync_out_M <= vsync_out_d;
                 
                 // Just pass these through.
                 hs <= hsync_out_M;
@@ -274,5 +310,5 @@ module vga_example (
                 b  <= blue_out;
         end
         
-        assign blank=vblnk_out||hblnk_out;
+        assign blank = vblnk_out_d || hblnk_out_d;
 endmodule

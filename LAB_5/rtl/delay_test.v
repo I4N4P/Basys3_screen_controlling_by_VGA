@@ -1,4 +1,4 @@
-module delay_test(
+module delay_test (
         input  wire        clk,
         input  wire        rst,
 
@@ -11,16 +11,16 @@ module delay_test(
         output wire [10:0] vcount_out,
         output wire        vsync_out,
         output wire        hsync_out
-    );
+        );
 
-    delay #(
-        .WIDTH (24),
-        .CLK_DEL(4)
-    ) u_delay (
-        .clk (clk),
-        .rst (rst),
-        .din ( {hcount_in, hsync_in, vcount_in, vsync_in}),
-        .dout ({hcount_out, hsync_out, vcount_out, vsync_out})
-    );
+        delay #(
+                .WIDTH (24),
+                .CLK_DEL(4)
+        ) u_delay (
+                .clk (clk),
+                .rst (rst),
+                .din ( {hcount_in, hsync_in, vcount_in, vsync_in}),
+                .dout ({hcount_out, hsync_out, vcount_out, vsync_out})
+        );
 
 endmodule

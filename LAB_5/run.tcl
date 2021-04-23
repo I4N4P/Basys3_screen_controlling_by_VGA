@@ -25,11 +25,14 @@ proc attach_files {} {
                 rtl/vga_timing.v
                 rtl/draw_background.v
                 rtl/draw_rect.v
+                rtl/draw_rect_char.v
                 rtl/clk_generator.v
                 rtl/internal_reset.v
                 rtl/position_memory.v
                 rtl/image_rom.v
-                rtl/signal_synchronizer.v 
+                rtl/font_rom.v
+                rtl/signal_synchronizer.v
+                rtl/delay.v 
                 rtl/draw_rect_ctl.v
         }
 
