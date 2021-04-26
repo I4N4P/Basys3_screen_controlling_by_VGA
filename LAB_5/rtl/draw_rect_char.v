@@ -40,7 +40,6 @@ module draw_rect_char (
         
         reg [11:0] rgb_nxt = 12'b0;
         reg [10:0] pixel_addr_nxt = 12'b0;
-        
 
         wire [11:0] vcount_out_s2,hcount_out_s2; 
         wire vsync_out_s2, hsync_out_s2;
@@ -107,11 +106,11 @@ module draw_rect_char (
                 if (hblnk_out_s2 || vblnk_out_s2) begin
                         rgb_nxt = rgb_out_s2;
                 end else begin
-                        //if (hcount_out_s2 >= xpos && hcount_out_s2 < xpos + RECT_WIDTH && vcount_out_s2 >= ypos && vcount_out_s2 < ypos + RECT_HEIGHT)
-                        rgb_nxt = rgb_out_s2; 
-                        //else 
-                        //rgb_nxt = rgb_out_s2;  
+                        if (char_pixel[(8-hcount_out_s2[2:0])] == 1)
+                                rgb_nxt = 12'h0_0_0; 
+                        else 
+                                rgb_nxt = rgb_out_s2;  
                 end
-                pixel_addr_nxt = {hcount_in[9:3], hcount_in[3:0]};
+                pixel_addr_nxt = {hcount_in[9:3], vcount_in[3:0]};
         end
 endmodule

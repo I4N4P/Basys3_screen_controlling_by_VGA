@@ -135,10 +135,10 @@ if {[lindex $argv 0] == "simulation"} {
         make_bitstream
 
         # Sekwencja pokazujaca i zapisujaca schemat rtl
-        start_gui
-        synth_design -rtl -name rtl_1 
-        show_schematic [concat [get_cells] [get_ports]]
-        write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
+        # start_gui
+        # synth_design -rtl -name rtl_1 
+        # show_schematic [concat [get_cells] [get_ports]]
+        # write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
 
         exit
 }
