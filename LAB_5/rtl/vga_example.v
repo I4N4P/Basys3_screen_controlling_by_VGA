@@ -45,7 +45,9 @@ module vga_example (
 
         wire [11:0] rgb_pixel,pixel_addr;
         
-        wire [10:0] char_addr;
+        wire [3:0]  text_line;
+        wire [7:0]  text_xy;
+        wire [6:0]  char_code;
         wire [7:0]  char_pixel;
 
         wire blank;  
@@ -262,15 +264,23 @@ module vga_example (
                 .hsync_out(hsync_out_d),
                 .hblnk_out(hblnk_out_d),
                 .rgb_out(rgb_out_d),
-                .char_addr(char_addr)
+                .text_xy(text_xy),
+                .text_line(text_line)
         );
 
         font_rom my_font_rom
         (
                 .clk(pclk),
         
-                .addr(char_addr),
+                .addr({char_code,text_line}),
                 .char_line_pixels(char_pixel)
+        );
+        text_rom_16x16 my_text_rom_16x16
+        (
+                .clk(pclk),
+        
+                .text_xy(text_xy),
+                .char_code(char_code)
         );
 
         MouseDisplay my_MouseDisplay

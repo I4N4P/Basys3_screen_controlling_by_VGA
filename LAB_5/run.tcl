@@ -31,6 +31,7 @@ proc attach_files {} {
                 rtl/position_memory.v
                 rtl/image_rom.v
                 rtl/font_rom.v
+                rtl/text_rom_16x16.v
                 rtl/signal_synchronizer.v
                 rtl/delay.v 
                 rtl/draw_rect_ctl.v
