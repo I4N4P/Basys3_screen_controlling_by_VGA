@@ -42,11 +42,14 @@ module draw_rect_char (
         localparam YPOS = 0;
 
         localparam BLACK = 12'h0_0_0;
+        localparam WHITE = 12'hf_f_f;
         
+        reg [11:0] color = 12'b0;
+
         reg [11:0] rgb_nxt = 12'b0;
-        reg [11:0] char_addr_nxt = 12'b0;
 
         reg [7:0] counter,counter_nxt = 0;
+        reg [7:0] counterpre,counterpre_nxt = 0;
 
         wire vsync_out_d, hsync_out_d;
         wire vblnk_out_d, hblnk_out_d;
@@ -102,23 +105,34 @@ module draw_rect_char (
 
                         rgb_out    <= rgb_nxt;
                         
-                        text_line  <= char_addr_nxt[3:0];
-                        text_xy  <= char_addr_nxt[11:4];
-                        
+                        text_line  <= vcount_in[3:0];
+                        // text_xy    <= (hcount_in[9:3] + counter_nxt);
+                        text_xy    <= counter_nxt;
                         counter <= counter_nxt;
+                        counterpre <= counterpre_nxt;
 
                 end
         end
         // Combinational logic
         always @* begin
 
-                if ((hcount_out_d == 128) && (vcount_out_d <= 256) && (vcount_out_d[3:0] == 15))
-                        if(counter >= 240)
-                                counter_nxt = 0;
-                        else
-                                counter_nxt = counter + 16;
-                else
+                if ((hcount_in >= XPOS) && (vcount_in >= YPOS) 
+                &&  (hcount_in <= XPOS + RECT_WIDTH ) && (vcount_in <= YPOS + RECT_HEIGHT) 
+                && (hcount_in[2:0] == 7)) begin
+                        if((vcount_in[3:0] < 15) && (hcount_in == 127)) begin
+                                counter_nxt = counterpre;
+                                counterpre_nxt = counterpre;
+                        end else if((vcount_in[3:0] == 15) && (hcount_in == 127)) begin
+                                counter_nxt = counter;
+                                counterpre_nxt = counter;
+                        end else begin
+                                counter_nxt = counter + 1;
+                                counterpre_nxt = counterpre;
+                        end
+                end else begin
                         counter_nxt = counter;
+                        counterpre_nxt = counterpre;
+                end
                 // rectangle generator
                 if (hblnk_out_d || vblnk_out_d) begin
                         rgb_nxt = rgb_out_d;
@@ -128,12 +142,11 @@ module draw_rect_char (
                                 if (char_pixel[(8-hcount_out_d[2:0])] == 1)
                                         rgb_nxt = BLACK; 
                                 else 
-                                        rgb_nxt = rgb_out_d;  
+                                        rgb_nxt = WHITE;  
                         end else begin
                                         rgb_nxt = rgb_out_d;
                         end
                 end
-                char_addr_nxt = {(hcount_in[9:3] + counter),vcount_in[3:0]};
         end
 
 endmodule
