@@ -37,9 +37,11 @@ proc attach_files {} {
                 rtl/draw_rect_ctl.v
         }
 
+        # sim/draw_rect_ctl_test.v
+        # sim/draw_rect_ctl_tb.v
+
         add_files -fileset sim_1 {
-                sim/draw_rect_ctl_test.v
-                sim/draw_rect_ctl_tb.v
+                
                 sim/testbench.v
                 sim/tiff_writer.v
         }
@@ -101,35 +103,35 @@ if {[lindex $argv 0] == "program"} {
 
 if {[lindex $argv 0] == "simulation"} {
 
-        remove_files -fileset sim_1 {
-                sim/testbench.v
-                sim/tiff_writer.v
-        }      
+        # remove_files -fileset sim_1 {
+        #         sim/testbench.v
+        #         sim/tiff_writer.v
+        # }      
 
-        remove_files -fileset sources_1 {
-                rtl/vga_example.v
-                rtl/vga_timing.v
-                rtl/draw_background.v
-                rtl/draw_rect.v
-                rtl/clk_generator.v
-                rtl/internal_reset.v
-                rtl/position_memory.v
-                rtl/image_rom.v
-                rtl/signal_synchronizer.v 
+        # remove_files -fileset sources_1 {
+        #         rtl/vga_example.v
+        #         rtl/vga_timing.v
+        #         rtl/draw_background.v
+        #         rtl/draw_rect.v
+        #         rtl/clk_generator.v
+        #         rtl/internal_reset.v
+        #         rtl/position_memory.v
+        #         rtl/image_rom.v
+        #         rtl/signal_synchronizer.v 
                 
-                rtl/MouseCtl.vhd
-                rtl/Ps2Interface.vhd
-                rtl/MouseDisplay.vhd
-        } 
+        #         rtl/MouseCtl.vhd
+        #         rtl/Ps2Interface.vhd
+        #         rtl/MouseDisplay.vhd
+        # } 
 
-        set_property top ${top_sim_module} [current_fileset]
+        set_property top ${top_module} [current_fileset]
         update_compile_order -fileset sources_1
         update_compile_order -fileset sim_1
 
         launch_simulation
-        add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} 
+        # add_wave {{/draw_rect_ctl_test/my_draw_rect_ctl/xpos}} {{/draw_rect_ctl_test/my_draw_rect_ctl/ypos}} 
         start_gui
-        run all
+        # run all
         
 } else { 
         
