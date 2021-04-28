@@ -25,7 +25,9 @@ proc attach_files {} {
                 rtl/vga_timing.v
                 rtl/draw_background.v
                 rtl/draw_rect.v
+                rtl/top_draw_rect.v
                 rtl/draw_rect_char.v
+                rtl/top_draw_rect_char.v
                 rtl/clk_generator.v
                 rtl/internal_reset.v
                 rtl/position_memory.v
@@ -35,6 +37,7 @@ proc attach_files {} {
                 rtl/signal_synchronizer.v
                 rtl/delay.v 
                 rtl/draw_rect_ctl.v
+                rtl/top_MouseDisplay.v
         }
 
         # sim/draw_rect_ctl_test.v
@@ -138,10 +141,10 @@ if {[lindex $argv 0] == "simulation"} {
         make_bitstream
 
         # Sekwencja pokazujaca i zapisujaca schemat rtl
-        # start_gui
-        # synth_design -rtl -name rtl_1 
-        # show_schematic [concat [get_cells] [get_ports]]
-        # write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
+        start_gui
+        synth_design -rtl -name rtl_1 
+        show_schematic [concat [get_cells] [get_ports]]
+        write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
 
-        exit
+        # exit
 }
