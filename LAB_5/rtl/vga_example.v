@@ -93,135 +93,135 @@ module vga_example (
     
         clk_generator my_clk_generator
         (
-                .clk(clk),
-                .clk100MHz(clk100MHz),
-                .clk40MHz(pclk),
-                .reset(rst),
-                .locked(locked)
+                .clk (clk),
+                .clk100MHz (clk100MHz),
+                .clk40MHz (pclk),
+                .reset (rst),
+                .locked (locked)
         );
   // Mirrors pclk on a pin for use by the testbench;
   // not functionally required for this design to work.
 
         ODDR pclk_oddr 
         (
-                .Q(pclk_mirror),
-                .C(pclk),
-                .CE(1'b1),
-                .D1(1'b1),
-                .D2(1'b0),
-                .R(1'b0),
-                .S(1'b0)
+                .Q  (pclk_mirror),
+                .C  (pclk),
+                .CE (1'b1),
+                .D1 (1'b1),
+                .D2 (1'b0),
+                .R  (1'b0),
+                .S  (1'b0)
         );
 
         internal_reset my_internal_reset
         (
-                .pclk(pclk),
-                .locked(locked),
-                .reset_out(reset)
+                .pclk   (pclk),
+                .locked (locked),
+                .reset_out (reset)
         );
         MouseCtl my_MouseCtl
         (
-                .clk(clk100MHz),
-                .rst(reset),
+                .clk (clk100MHz),
+                .rst (reset),
                 
-                .value(12'b0),
-                .setx(1'b0),
-                .sety(1'b0),
-                .setmax_x(1'b0),
-                .setmax_y(1'b0),
-                .ps2_clk(ps2_clk), 
-                .ps2_data(ps2_data),
-                .xpos(xpos),
-                .ypos(ypos),
-                .left(mouse_left),
-                .zpos(),
-	        .middle(),
-	        .right(),
-	        .new_event()
+                .value (12'b0),
+                .setx  (1'b0),
+                .sety  (1'b0),
+                .setmax_x (1'b0),
+                .setmax_y (1'b0),
+                .ps2_clk (ps2_clk), 
+                .ps2_data (ps2_data),
+                .xpos (xpos),
+                .ypos (ypos),
+                .left (mouse_left),
+                .zpos (),
+	        .middle (),
+	        .right (),
+	        .new_event ()
         );
 
         position_memory my_position_memory
         (
-                .pclk(pclk),
-                .rst(reset),
+                .pclk (pclk),
+                .rst (reset),
 
-                .xpos_in(xpos),
-                .ypos_in(ypos),
-                .mouse_left_in(mouse_left),
-                .xpos_out(xpos_mem),
-                .ypos_out(ypos_mem),
-                .mouse_left_out(mouse_left_mem)
+                .xpos_in (xpos),
+                .ypos_in (ypos),
+                .mouse_left_in (mouse_left),
+                .xpos_out (xpos_mem),
+                .ypos_out (ypos_mem),
+                .mouse_left_out (mouse_left_mem)
         
         );
         draw_rect_ctl my_draw_rect_ctl
         (
-                .pclk(pclk),
-                .rst(reset),
+                .pclk (pclk),
+                .rst (reset),
 
-                .mouse_xpos(xpos_mem),
-                .mouse_ypos(ypos_mem),
-                .mouse_left(mouse_left_mem),
+                .mouse_xpos (xpos_mem),
+                .mouse_ypos (ypos_mem),
+                .mouse_left (mouse_left_mem),
 
-                .xpos(xpos_ctl),
-                .ypos(ypos_ctl)
+                .xpos (xpos_ctl),
+                .ypos (ypos_ctl)
         );
         // Instantiate the vga_timing module
 
         vga_timing my_timing (
-                .pclk(pclk),
-                .rst(reset),
+                .pclk (pclk),
+                .rst (reset),
                 
-                .vcount(vcount),
-                .vsync(vsync),
-                .vblnk(vblnk),
-                .hcount(hcount),
-                .hsync(hsync),
-                .hblnk(hblnk)
+                .vcount (vcount),
+                .vsync  (vsync),
+                .vblnk  (vblnk),
+                .hcount (hcount),
+                .hsync  (hsync),
+                .hblnk  (hblnk)
         );
 
         draw_background my_draw_background 
         (
                 .pclk(pclk),
-                .rst(reset),
+                .rst (reset),
 
-                .vcount_in(vcount),
-                .vsync_in(vsync),
-                .vblnk_in(vblnk),
-                .hcount_in(hcount),
-                .hsync_in(hsync),
-                .hblnk_in(hblnk),
+                .vcount_in (vcount),
+                .vsync_in  (vsync),
+                .vblnk_in  (vblnk),
+                .hcount_in (hcount),
+                .hsync_in  (hsync),
+                .hblnk_in  (hblnk),
 
-                .vcount_out(vcount_out_b),
-                .vsync_out(vsync_out_b),
-                .vblnk_out(vblnk_out_b),
-                .hcount_out(hcount_out_b),
-                .hsync_out(hsync_out_b),
-                .hblnk_out(hblnk_out_b),
-                .rgb_out(rgb_out_b)
+                .vcount_out (vcount_out_b),
+                .vsync_out  (vsync_out_b),
+                .vblnk_out  (vblnk_out_b),
+                .hcount_out (hcount_out_b),
+                .hsync_out  (hsync_out_b),
+                .hblnk_out  (hblnk_out_b),
+                .rgb_out    (rgb_out_b)
         );
         top_draw_rect my_top_draw_rect 
         (
-                .pclk(pclk),
-                .rst(reset),
+                .pclk (pclk),
+                .rst  (reset),
 
-                .xpos(xpos_ctl),
-                .ypos(ypos_ctl),
+                .xpos (xpos_ctl),
+                .ypos (ypos_ctl),
 
-                .vcount_in(vcount_out_b),
-                .vsync_in(vsync_out_b),
-                .vblnk_in(vblnk_out_b),
-                .hcount_in(hcount_out_b),
-                .hsync_in(hsync_out_b),
-                .hblnk_in(hblnk_out_b),
-                .rgb_in(rgb_out_b),
+                .vcount_in (vcount_out_b),
+                .vsync_in  (vsync_out_b),
+                .vblnk_in  (vblnk_out_b),
+                .hcount_in (hcount_out_b),
+                .hsync_in  (hsync_out_b),
+                .hblnk_in  (hblnk_out_b),
+                .rgb_in    (rgb_out_b),
 
-                .vcount_out(vcount_out),
-                .vsync_out(vsync_out),
-                .vblnk_out(vblnk_out),
-                .hcount_out(hcount_out),
-                .hsync_out(hsync_out),
-                .hblnk_out(hblnk_out),
-                .rgb_out(rgb_out)
+                .vcount_out (vcount_out),
+                .vsync_out  (vsync_out),
+                .vblnk_out  (vblnk_out),
+                .hcount_out (hcount_out),
+                .hsync_out  (hsync_out),
+                .hblnk_out  (hblnk_out),
+                .rgb_out    (rgb_out)
         );
 
         top_draw_rect_char #(
@@ -229,47 +229,47 @@ module vga_example (
                 .YPOS (99)
         ) my_top_draw_rect_char 
         (
-                .pclk(pclk),
-                .rst(reset),
+                .pclk (pclk),
+                .rst  (reset),
 
-                .vcount_in(vcount_out),
-                .vsync_in(vsync_out),
-                .vblnk_in(vblnk_out),
-                .hcount_in(hcount_out),
-                .hsync_in(hsync_out),
-                .hblnk_in(hblnk_out),
-                .rgb_in(rgb_out),
+                .vcount_in (vcount_out),
+                .vsync_in  (vsync_out),
+                .vblnk_in  (vblnk_out),
+                .hcount_in (hcount_out),
+                .hsync_in  (hsync_out),
+                .hblnk_in  (hblnk_out),
+                .rgb_in    (rgb_out),
 
-                .vcount_out(vcount_out_d),
-                .vsync_out(vsync_out_d),
-                .vblnk_out(vblnk_out_d),
-                .hcount_out(hcount_out_d),
-                .hsync_out(hsync_out_d),
-                .hblnk_out(hblnk_out_d),
-                .rgb_out(rgb_out_d)
+                .vcount_out (vcount_out_d),
+                .vsync_out  (vsync_out_d),
+                .vblnk_out  (vblnk_out_d),
+                .hcount_out (hcount_out_d),
+                .hsync_out  (hsync_out_d),
+                .hblnk_out  (hblnk_out_d),
+                .rgb_out    (rgb_out_d)
         );
 
         top_MouseDisplay my_top_MouseDisplay
         (
-                .pclk(pclk),
+                .pclk (pclk),
                 
-                .xpos(xpos_mem),
-                .ypos(ypos_mem),
+                .xpos (xpos_mem),
+                .ypos (ypos_mem),
 
-                .vcount_in(vcount_out_d),
-                .vsync_in(vsync_out_d),
-                .vblnk_in(vblnk_out_d),
-                .hcount_in(hcount_out_d),
-                .hsync_in(hsync_out_d),
-                .hblnk_in(hblnk_out_d),
-                .rgb_in(rgb_out_d),
+                .vcount_in (vcount_out_d),
+                .vsync_in  (vsync_out_d),
+                .vblnk_in  (vblnk_out_d),
+                .hcount_in (hcount_out_d),
+                .hsync_in  (hsync_out_d),
+                .hblnk_in  (hblnk_out_d),
+                .rgb_in    (rgb_out_d),
 
-                .hsync_out(hsync_out_M),
-                .vsync_out(vsync_out_M),
+                .hsync_out (hsync_out_M),
+                .vsync_out (vsync_out_M),
 
-                .red_out(red_out),
-                .green_out(green_out),
-                .blue_out(blue_out)
+                .red_out   (red_out),
+                .green_out (green_out),
+                .blue_out  (blue_out)
         ); 
 
         // Synchronical logic
