@@ -1,2 +1,2 @@
-# Basys3_Screen_controllingby_VGA
+# Basys3_Screen_controlling_by_VGA
  
