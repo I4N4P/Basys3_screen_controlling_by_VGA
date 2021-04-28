@@ -282,5 +282,6 @@ module text_rom_16x16
                 8'hfd: char_code1 = 7'h20; // 
                 8'hfe: char_code1 = 7'h20; // 
                 8'hff: char_code1 = 7'h20; // 
+                default : char_code1 = 7'h20; //
         endcase
 endmodule

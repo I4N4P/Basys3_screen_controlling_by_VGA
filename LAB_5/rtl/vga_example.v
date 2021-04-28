@@ -46,6 +46,7 @@ module vga_example (
         wire [11:0] rgb_pixel,pixel_addr;
         
         wire [3:0]  text_line;
+        reg [3:0]  text_line_r;
         wire [7:0]  text_xy;
         wire [6:0]  char_code;
         wire [7:0]  char_pixel;
@@ -243,7 +244,10 @@ module vga_example (
                 .rgb(rgb_pixel)
         );
 
-        draw_rect_char my_draw_rect_char 
+        draw_rect_char #(
+                .XPOS (128),
+                .YPOS (99)
+        ) my_draw_rect_char 
         (
                 .pclk(pclk),
                 .rst(reset),
@@ -272,7 +276,7 @@ module vga_example (
         (
                 .clk(pclk),
         
-                .addr({char_code,text_line}),
+                .addr({char_code,text_line_r}),
                 .char_line_pixels(char_pixel)
         );
         text_rom_16x16 my_text_rom_16x16
@@ -310,7 +314,7 @@ module vga_example (
                 // signal is delayed since MouseDisplay exist and tiff sim does not work well.
                 hsync_out_M <= hsync_out_d;
                 vsync_out_M <= vsync_out_d;
-                
+                text_line_r <= text_line;
                 // Just pass these through.
                 hs <= hsync_out_M;
                 vs <= vsync_out_M;
