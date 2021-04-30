@@ -13,12 +13,62 @@
 
 module uart_monitor (
         input wire clk,
+        input wire reset,
+
+        input wire btn,
         input wire rx, 
-        input wire tx, 
         input wire loopback_enable, 
         
+        output wire tx, 
         output wire rx_monitor, 
         output wire tx_monitor
         );
+
+        wire clk_100MHz,clk_50MHz;
+        wire rst,locked;
+
+        gen_clock my_gen_clock 
+        (
+                .clk (clk),
+                .reset (reset),
+
+                .clk_100MHz (clk_100MHz),
+                .clk_50MHz (clk_50MHz),            
+                .locked (locked)
+        );
+
+        internal_reset my_internal_reset 
+        (
+                .clk   (clk_50MHz),
+                .locked (locked),
+                .reset_out (rst)
+        );
+
+
+   wire tx_full, rx_empty, btn_tick;
+   wire [7:0] rec_data, rec_data1;
+
+        uart uart_unit 
+        (
+                .clk (clk_50MHz),
+                .reset (rst),
+
+                .rd_uart (btn_tick),
+                .wr_uart (btn_tick), 
+                .rx (rx), 
+                .w_data (rec_data1),
+                .tx_full (tx_full), 
+                .rx_empty (rx_empty),
+                .r_data (rec_data), 
+                .tx (tx)
+        );
+
+
+           debounce btn_db_unit
+      (.clk(clk_50MHz), .reset(reset), .sw(btn),
+       .db_level(), .db_tick(btn_tick));
+   // incremented data loops back
+   assign rec_data1 = rec_data + 1;
+
 
 endmodule

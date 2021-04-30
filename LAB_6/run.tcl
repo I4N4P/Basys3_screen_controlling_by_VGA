@@ -1,5 +1,5 @@
-set project uart_test
-set top_module uart_test
+set project uart_monitor
+set top_module uart_monitor
 # set top_sim_module draw_rect_ctl
 set target xc7a35tcpg236-1
 set bitstream_file build/${project}.runs/impl_1/${top_module}.bit
@@ -11,7 +11,7 @@ proc usage {} {
 
 proc attach_files {} {
         read_xdc {
-                constraints/vga_example.xdc
+                constraints/uart.xdc
         }
 
         # read_vhdl {
@@ -29,8 +29,9 @@ proc attach_files {} {
                 rtl/uart_rx.v
                 rtl/uart_tx.v
                 rtl/uart.v        
-                rtl/uart_test.v        
+                rtl/uart_monitor.v        
                 rtl/gen_clock.v        
+                rtl/internal_reset.v        
         }
 
         # sim/draw_rect_ctl_test.v
