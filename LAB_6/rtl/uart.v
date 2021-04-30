@@ -9,7 +9,7 @@ module uart
                 DVSR = 163,   // baud rate divisor
                         // DVSR = 50M/(16*baud rate)
                 DVSR_BIT = 8, // # bits of DVSR
-                FIFO_W = 2    // # addr bits of FIFO
+                FIFO_W = 4    // # addr bits of FIFO
                         // # words in FIFO=2^FIFO_W
         )
         (
