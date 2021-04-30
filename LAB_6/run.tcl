@@ -1,6 +1,6 @@
-set project vga_example
-set top_module vga_example
-set top_sim_module draw_rect_ctl
+set project uart_test
+set top_module uart_test
+# set top_sim_module draw_rect_ctl
 set target xc7a35tcpg236-1
 set bitstream_file build/${project}.runs/impl_1/${top_module}.bit
 
@@ -21,25 +21,26 @@ proc attach_files {} {
         # }
 
         read_verilog {
-                rtl/uart/debounce.v
-                rtl/uart/disp_hex_mux.v
-                rtl/uart/fifo.v
-                rtl/uart/flag_buf.v
-                rtl/uart/mod_m_counter.v
-                rtl/uart/uart_rx.v
-                rtl/uart/uart_tx.v
-                rtl/uart/uart.v
-                
+                rtl/debounce.v
+                rtl/disp_hex_mux.v
+                rtl/fifo.v
+                rtl/flag_buf.v
+                rtl/mod_m_counter.v
+                rtl/uart_rx.v
+                rtl/uart_tx.v
+                rtl/uart.v        
+                rtl/uart_test.v        
+                rtl/gen_clock.v        
         }
 
         # sim/draw_rect_ctl_test.v
         # sim/draw_rect_ctl_tb.v
 
-        add_files -fileset sim_1 {
+        # add_files -fileset sim_1 {
                 
-                sim/testbench.v
-                sim/tiff_writer.v
-        }
+        #         sim/testbench.v
+        #         sim/tiff_writer.v
+        # }
 }
 
 proc make_project {} {
@@ -73,10 +74,10 @@ if {[lindex $argv 0] == "program"} {
 
         set fexist [file exist ${bitstream_file}]
         puts "bitstream exist : $fexist"
-        if { $fexist == 0 } {
-                make_project
-                make_bitstream 
-        }     
+        # if { $fexist == 0 } {
+        #         make_project
+        #         make_bitstream 
+        # }     
         open_hw
         connect_hw_server
         current_hw_target [get_hw_targets *]
@@ -133,10 +134,10 @@ if {[lindex $argv 0] == "simulation"} {
         make_bitstream
 
         # Sekwencja pokazujaca i zapisujaca schemat rtl
-        start_gui
-        synth_design -rtl -name rtl_1 
-        show_schematic [concat [get_cells] [get_ports]]
-        write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
+        # start_gui
+        # synth_design -rtl -name rtl_1 
+        # show_schematic [concat [get_cells] [get_ports]]
+        # write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
 
-        # exit
+         exit
 }
