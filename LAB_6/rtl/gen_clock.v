@@ -66,186 +66,176 @@
 
 `timescale 1ps/1ps
 
-module gen_clock 
+module gen_clock (
+        // Clock in ports
+        // Clock out ports
+        output        clk_100MHz,
+        output        clk_50MHz,
+        // Status and control signals
+        input         reset,
+        output        locked,
+        input         clk
+        );
+        // Input buffering
+        //------------------------------------
+        wire clk_gen_clock;
+        wire clk_in2_gen_clock;
+        
+        IBUF clkin1_ibufg (
+                .O (clk_gen_clock),
+                .I (clk)
+        );
 
- (// Clock in ports
-  // Clock out ports
-  output        clk_100MHz,
-  output        clk_50MHz,
-  // Status and control signals
-  input         reset,
-  output        locked,
-  input         clk
- );
-  // Input buffering
-  //------------------------------------
-wire clk_gen_clock;
-wire clk_in2_gen_clock;
-  IBUF clkin1_ibufg
-   (.O (clk_gen_clock),
-    .I (clk));
+        // Clocking PRIMITIVE
+        //------------------------------------
 
+        // Instantiation of the MMCM PRIMITIVE
+        //    * Unused inputs are tied off
+        //    * Unused outputs are labeled unused
 
+        wire        clk_100MHz_gen_clock;
+        wire        clk_50MHz_gen_clock;
+        wire        clk_out3_gen_clock;
+        wire        clk_out4_gen_clock;
+        wire        clk_out5_gen_clock;
+        wire        clk_out6_gen_clock;
+        wire        clk_out7_gen_clock;
 
+        wire [15:0] do_unused;
+        wire        drdy_unused;
+        wire        psdone_unused;
+        wire        locked_int;
+        wire        clkfbout_gen_clock;
+        wire        clkfbout_buf_gen_clock;
+        wire        clkfboutb_unused;
+        wire        clkout0b_unused;
+        wire        clkout1b_unused;
+        wire        clkout2_unused;
+        wire        clkout2b_unused;
+        wire        clkout3_unused;
+        wire        clkout3b_unused;
+        wire        clkout4_unused;
+        wire        clkout5_unused;
+        wire        clkout6_unused;
+        wire        clkfbstopped_unused;
+        wire        clkinstopped_unused;
+        wire        reset_high;
+        (* KEEP = "TRUE" *) 
+        (* ASYNC_REG = "TRUE" *)
+        reg  [7 :0] seq_reg1 = 0;
+        (* KEEP = "TRUE" *) 
+        (* ASYNC_REG = "TRUE" *)
+        reg  [7 :0] seq_reg2 = 0;
 
-  // Clocking PRIMITIVE
-  //------------------------------------
+        MMCME2_ADV #(
+                .BANDWIDTH            ("OPTIMIZED"),
+                .CLKOUT4_CASCADE      ("FALSE"),
+                .COMPENSATION         ("ZHOLD"),
+                .STARTUP_WAIT         ("FALSE"),
+                .DIVCLK_DIVIDE        (1),
+                .CLKFBOUT_MULT_F      (10.000),
+                .CLKFBOUT_PHASE       (0.000),
+                .CLKFBOUT_USE_FINE_PS ("FALSE"),
+                .CLKOUT0_DIVIDE_F     (10.000),
+                .CLKOUT0_PHASE        (0.000),
+                .CLKOUT0_DUTY_CYCLE   (0.500),
+                .CLKOUT0_USE_FINE_PS  ("FALSE"),
+                .CLKOUT1_DIVIDE       (20),
+                .CLKOUT1_PHASE        (0.000),
+                .CLKOUT1_DUTY_CYCLE   (0.500),
+                .CLKOUT1_USE_FINE_PS  ("FALSE"),
+                .CLKIN1_PERIOD        (10.000))
+        mmcm_adv_inst (
+                // Output clocks
+                .CLKFBOUT            (clkfbout_gen_clock),
+                .CLKFBOUTB           (clkfboutb_unused),
+                .CLKOUT0             (clk_100MHz_gen_clock),
+                .CLKOUT0B            (clkout0b_unused),
+                .CLKOUT1             (clk_50MHz_gen_clock),
+                .CLKOUT1B            (clkout1b_unused),
+                .CLKOUT2             (clkout2_unused),
+                .CLKOUT2B            (clkout2b_unused),
+                .CLKOUT3             (clkout3_unused),
+                .CLKOUT3B            (clkout3b_unused),
+                .CLKOUT4             (clkout4_unused),
+                .CLKOUT5             (clkout5_unused),
+                .CLKOUT6             (clkout6_unused),
+                // Input clock control
+                .CLKFBIN             (clkfbout_buf_gen_clock),
+                .CLKIN1              (clk_gen_clock),
+                .CLKIN2              (1'b0),
+                // Tied to always select the primary input clock
+                .CLKINSEL            (1'b1),
+                // Ports for dynamic reconfiguration
+                .DADDR               (7'h0),
+                .DCLK                (1'b0),
+                .DEN                 (1'b0),
+                .DI                  (16'h0),
+                .DO                  (do_unused),
+                .DRDY                (drdy_unused),
+                .DWE                 (1'b0),
+                // Ports for dynamic phase shift
+                .PSCLK               (1'b0),
+                .PSEN                (1'b0),
+                .PSINCDEC            (1'b0),
+                .PSDONE              (psdone_unused),
+                // Other control and status signals
+                .LOCKED              (locked_int),
+                .CLKINSTOPPED        (clkinstopped_unused),
+                .CLKFBSTOPPED        (clkfbstopped_unused),
+                .PWRDWN              (1'b0),
+                .RST                 (reset_high)
+        );
+        
+        assign reset_high = reset; 
 
-  // Instantiation of the MMCM PRIMITIVE
-  //    * Unused inputs are tied off
-  //    * Unused outputs are labeled unused
+        assign locked = locked_int;
+        // Clock Monitor clock assigning
+        //--------------------------------------
+        // Output buffering
+        //-----------------------------------
 
-  wire        clk_100MHz_gen_clock;
-  wire        clk_50MHz_gen_clock;
-  wire        clk_out3_gen_clock;
-  wire        clk_out4_gen_clock;
-  wire        clk_out5_gen_clock;
-  wire        clk_out6_gen_clock;
-  wire        clk_out7_gen_clock;
+        BUFG clkf_buf (
+                .O (clkfbout_buf_gen_clock),
+                .I (clkfbout_gen_clock)
+        );
 
-  wire [15:0] do_unused;
-  wire        drdy_unused;
-  wire        psdone_unused;
-  wire        locked_int;
-  wire        clkfbout_gen_clock;
-  wire        clkfbout_buf_gen_clock;
-  wire        clkfboutb_unused;
-    wire clkout0b_unused;
-   wire clkout1b_unused;
-   wire clkout2_unused;
-   wire clkout2b_unused;
-   wire clkout3_unused;
-   wire clkout3b_unused;
-   wire clkout4_unused;
-  wire        clkout5_unused;
-  wire        clkout6_unused;
-  wire        clkfbstopped_unused;
-  wire        clkinstopped_unused;
-  wire        reset_high;
-  (* KEEP = "TRUE" *) 
-  (* ASYNC_REG = "TRUE" *)
-  reg  [7 :0] seq_reg1 = 0;
-  (* KEEP = "TRUE" *) 
-  (* ASYNC_REG = "TRUE" *)
-  reg  [7 :0] seq_reg2 = 0;
+        BUFGCE clkout1_buf (
+                .O (clk_100MHz),
+                .CE (seq_reg1[7]),
+                .I  (clk_100MHz_gen_clock)
+        );
 
-  MMCME2_ADV
-  #(.BANDWIDTH            ("OPTIMIZED"),
-    .CLKOUT4_CASCADE      ("FALSE"),
-    .COMPENSATION         ("ZHOLD"),
-    .STARTUP_WAIT         ("FALSE"),
-    .DIVCLK_DIVIDE        (1),
-    .CLKFBOUT_MULT_F      (10.000),
-    .CLKFBOUT_PHASE       (0.000),
-    .CLKFBOUT_USE_FINE_PS ("FALSE"),
-    .CLKOUT0_DIVIDE_F     (10.000),
-    .CLKOUT0_PHASE        (0.000),
-    .CLKOUT0_DUTY_CYCLE   (0.500),
-    .CLKOUT0_USE_FINE_PS  ("FALSE"),
-    .CLKOUT1_DIVIDE       (20),
-    .CLKOUT1_PHASE        (0.000),
-    .CLKOUT1_DUTY_CYCLE   (0.500),
-    .CLKOUT1_USE_FINE_PS  ("FALSE"),
-    .CLKIN1_PERIOD        (10.000))
-  mmcm_adv_inst
-    // Output clocks
-   (
-    .CLKFBOUT            (clkfbout_gen_clock),
-    .CLKFBOUTB           (clkfboutb_unused),
-    .CLKOUT0             (clk_100MHz_gen_clock),
-    .CLKOUT0B            (clkout0b_unused),
-    .CLKOUT1             (clk_50MHz_gen_clock),
-    .CLKOUT1B            (clkout1b_unused),
-    .CLKOUT2             (clkout2_unused),
-    .CLKOUT2B            (clkout2b_unused),
-    .CLKOUT3             (clkout3_unused),
-    .CLKOUT3B            (clkout3b_unused),
-    .CLKOUT4             (clkout4_unused),
-    .CLKOUT5             (clkout5_unused),
-    .CLKOUT6             (clkout6_unused),
-     // Input clock control
-    .CLKFBIN             (clkfbout_buf_gen_clock),
-    .CLKIN1              (clk_gen_clock),
-    .CLKIN2              (1'b0),
-     // Tied to always select the primary input clock
-    .CLKINSEL            (1'b1),
-    // Ports for dynamic reconfiguration
-    .DADDR               (7'h0),
-    .DCLK                (1'b0),
-    .DEN                 (1'b0),
-    .DI                  (16'h0),
-    .DO                  (do_unused),
-    .DRDY                (drdy_unused),
-    .DWE                 (1'b0),
-    // Ports for dynamic phase shift
-    .PSCLK               (1'b0),
-    .PSEN                (1'b0),
-    .PSINCDEC            (1'b0),
-    .PSDONE              (psdone_unused),
-    // Other control and status signals
-    .LOCKED              (locked_int),
-    .CLKINSTOPPED        (clkinstopped_unused),
-    .CLKFBSTOPPED        (clkfbstopped_unused),
-    .PWRDWN              (1'b0),
-    .RST                 (reset_high));
-  assign reset_high = reset; 
+        BUFH clkout1_buf_en (
+                .O (clk_100MHz_gen_clock_en_clk),
+                .I (clk_100MHz_gen_clock)
+        );
 
-  assign locked = locked_int;
-// Clock Monitor clock assigning
-//--------------------------------------
- // Output buffering
-  //-----------------------------------
+        always @(posedge clk_100MHz_gen_clock_en_clk or posedge reset_high) begin
+                if(reset_high == 1'b1) begin
+                        seq_reg1 <= 8'h00;
+                end else begin
+                        seq_reg1 <= {seq_reg1[6:0],locked_int};
+                end
+        end
 
-  BUFG clkf_buf
-   (.O (clkfbout_buf_gen_clock),
-    .I (clkfbout_gen_clock));
-
-
-
-
-
-
-
-  BUFGCE clkout1_buf
-   (.O   (clk_100MHz),
-    .CE  (seq_reg1[7]),
-    .I   (clk_100MHz_gen_clock));
-
-  BUFH clkout1_buf_en
-   (.O   (clk_100MHz_gen_clock_en_clk),
-    .I   (clk_100MHz_gen_clock));
-  always @(posedge clk_100MHz_gen_clock_en_clk or posedge reset_high) begin
-    if(reset_high == 1'b1) begin
-	    seq_reg1 <= 8'h00;
-    end
-    else begin
-        seq_reg1 <= {seq_reg1[6:0],locked_int};
-  
-    end
-  end
-
-
-  BUFGCE clkout2_buf
-   (.O   (clk_50MHz),
-    .CE  (seq_reg2[7]),
-    .I   (clk_50MHz_gen_clock));
- 
-  BUFH clkout2_buf_en
-   (.O   (clk_50MHz_gen_clock_en_clk),
-    .I   (clk_50MHz_gen_clock));
- 
-  always @(posedge clk_50MHz_gen_clock_en_clk or posedge reset_high) begin
-    if(reset_high == 1'b1) begin
-	  seq_reg2 <= 8'h00;
-    end
-    else begin
-        seq_reg2 <= {seq_reg2[6:0],locked_int};
-  
-    end
-  end
-
-
-
-
+        BUFGCE clkout2_buf (       
+                .O  (clk_50MHz),
+                .CE (seq_reg2[7]),
+                .I  (clk_50MHz_gen_clock)
+        );
+        
+        BUFH clkout2_buf_en (
+                .O (clk_50MHz_gen_clock_en_clk),
+                .I (clk_50MHz_gen_clock)
+        );
+        
+        always @(posedge clk_50MHz_gen_clock_en_clk or posedge reset_high) begin
+                if(reset_high == 1'b1) begin
+                        seq_reg2 <= 8'h00;
+                end else begin
+                        seq_reg2 <= {seq_reg2[6:0],locked_int}; 
+                end
+        end
 
 endmodule
