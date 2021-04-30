@@ -107,8 +107,8 @@ set_property PACKAGE_PIN A18 [get_ports {tx}]
 ##Buttons
 set_property PACKAGE_PIN U18 [get_ports {reset}]
         set_property IOSTANDARD LVCMOS33 [get_ports {reset}]
-set_property PACKAGE_PIN T18 [get_ports btn]						
-	set_property IOSTANDARD LVCMOS33 [get_ports btn]
+# set_property PACKAGE_PIN T18 [get_ports btn]						
+# 	set_property IOSTANDARD LVCMOS33 [get_ports btn]
 
 set_property PACKAGE_PIN V17 [get_ports loopback_enable]						
 	set_property IOSTANDARD LVCMOS33 [get_ports loopback_enable]

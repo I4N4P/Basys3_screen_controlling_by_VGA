@@ -15,13 +15,13 @@ module uart_monitor (
         input wire clk,
         input wire reset,
 
-        input wire btn,
+        //input wire btn,
         input wire rx, 
         input wire loopback_enable, 
         
-        output wire tx, 
-        output wire rx_monitor, 
-        output wire tx_monitor
+        output reg tx, 
+        output reg rx_monitor, 
+        output reg tx_monitor
         );
 
         wire clk_100MHz,clk_50MHz;
@@ -45,30 +45,46 @@ module uart_monitor (
         );
 
 
-   wire tx_full, rx_empty, btn_tick;
-   wire [7:0] rec_data, rec_data1;
+//         wire tx_full, rx_empty, btn_tick;
+//         wire [7:0] rec_data, rec_data1;
 
-        uart uart_unit 
-        (
-                .clk (clk_50MHz),
-                .reset (rst),
+//         uart uart_unit 
+//         (
+//                 .clk (clk_50MHz),
+//                 .reset (rst),
 
-                .rd_uart (btn_tick),
-                .wr_uart (btn_tick), 
-                .rx (rx), 
-                .w_data (rec_data1),
-                .tx_full (tx_full), 
-                .rx_empty (rx_empty),
-                .r_data (rec_data), 
-                .tx (tx)
-        );
+//                 .rd_uart (btn_tick),
+//                 .wr_uart (btn_tick), 
+//                 .rx (rx), 
+//                 .w_data (rec_data1),
+//                 .tx_full (tx_full), 
+//                 .rx_empty (rx_empty),
+//                 .r_data (rec_data), 
+//                 .tx (tx)
+//         );
 
 
-           debounce btn_db_unit
-      (.clk(clk_50MHz), .reset(reset), .sw(btn),
-       .db_level(), .db_tick(btn_tick));
-   // incremented data loops back
-   assign rec_data1 = rec_data + 1;
+//            debounce btn_db_unit
+//       (.clk(clk_50MHz), .reset(reset), .sw(btn),
+//        .db_level(), .db_tick(btn_tick));
+//         // incremented data loops back
+//         assign rec_data1 = rec_data + 1;
+
+        always @ (posedge clk_100MHz) begin
+                if (rst) begin 
+                        rx_monitor <= 1'b0;
+                        tx_monitor <= 1'b0;
+                        tx         <= 1'b0;
+                end else begin
+                        if (loopback_enable)
+                                tx <= rx;
+                        else
+                                tx <= 0;
+                        rx_monitor <= rx;
+                        tx_monitor <= tx;    
+                        
+                end      
+        end
 
 
 endmodule
