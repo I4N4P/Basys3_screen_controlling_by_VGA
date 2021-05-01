@@ -12,19 +12,19 @@
 // using Verilog-2001 syntax.
 
 module uart_monitor (
-        input wire clk,
-        input wire reset,
+                input wire clk,
+                input wire reset,
 
-        input wire btn,
-        input wire rx, 
-        input wire loopback_enable, 
-        
-        output reg tx, 
-        output reg rx_monitor, 
-        output reg tx_monitor,
+                input wire btn,
+                input wire rx, 
+                input wire loopback_enable, 
+                
+                output reg tx, 
+                output reg rx_monitor, 
+                output reg tx_monitor,
 
-        output wire [3:0] an,
-        output wire [7:0] seg
+                output wire [3:0] an,
+                output wire [7:0] seg
         );
 
         wire clk_100MHz,clk_50MHz;
@@ -51,7 +51,7 @@ module uart_monitor (
         (
                 .clk   (clk_50MHz),
                 .locked (locked),
-                
+
                 .reset_out (rst)
         );
 
@@ -64,6 +64,7 @@ module uart_monitor (
                 .wr_uart (btn_tick), 
                 .rx (rx), 
                 .w_data (data[7:0]),
+
                 .tx_full (tx_full), 
                 .rx_empty (rx_empty),
                 .r_data (rec_data), 
@@ -76,6 +77,7 @@ module uart_monitor (
                 .reset (rst), 
               
                 .sw (btn),
+
                 .db_level (), 
                 .db_tick (btn_tick)
         );
@@ -89,10 +91,13 @@ module uart_monitor (
                 .hex2 (data[11:8]), 
                 .hex1 (data[7:4]), 
                 .hex0 (data[3:0]),
-                .dp_in (4'b1011), 
+                .dp_in (4'b1011),
+
                 .an (an), 
                 .sseg (seg)
         );
+
+        // display and send ASCII synchronical logic
 
         always @ (posedge clk_50MHz) begin
                 if (rst) begin 
@@ -105,6 +110,8 @@ module uart_monitor (
                         flag <= flag_nxt;
                 end      
         end
+
+        // display and send ASCII combinational logic
 
         always @ * begin
                 tick_nxt = 1'b0;
@@ -120,6 +127,8 @@ module uart_monitor (
                         data_nxt = data;    
                 end 
         end
+
+        // monitor synchronical logic
 
         always @ (posedge clk_100MHz) begin
                 if (rst) begin 

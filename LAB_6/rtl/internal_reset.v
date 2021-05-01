@@ -11,9 +11,9 @@
 // using Verilog-2001 syntax.
 
 module internal_reset (
-        input   wire clk,
-        input   wire locked,
-        output  reg  reset_out
+                input   wire clk,
+                input   wire locked,
+                output  reg  reset_out
         );
 
         reg [6:0] counter,counter_nxt;

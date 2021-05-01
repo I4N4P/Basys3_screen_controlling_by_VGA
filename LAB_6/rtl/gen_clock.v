@@ -67,21 +67,22 @@
 `timescale 1ps/1ps
 
 module gen_clock (
-        // Clock in ports
-        // Clock out ports
-        output        clk_100MHz,
-        output        clk_50MHz,
-        // Status and control signals
-        input         reset,
-        output        locked,
-        input         clk
+                // Clock in ports
+                input         clk,
+                input         reset,
+                // Clock out ports
+                output        clk_100MHz,
+                output        clk_50MHz,
+                // Status and control signals
+                output        locked
         );
         // Input buffering
         //------------------------------------
         wire clk_gen_clock;
         wire clk_in2_gen_clock;
         
-        IBUF clkin1_ibufg (
+        IBUF clkin1_ibufg 
+        (
                 .O (clk_gen_clock),
                 .I (clk)
         );
@@ -145,7 +146,8 @@ module gen_clock (
                 .CLKOUT1_DUTY_CYCLE   (0.500),
                 .CLKOUT1_USE_FINE_PS  ("FALSE"),
                 .CLKIN1_PERIOD        (10.000))
-        mmcm_adv_inst (
+        mmcm_adv_inst 
+        (
                 // Output clocks
                 .CLKFBOUT            (clkfbout_gen_clock),
                 .CLKFBOUTB           (clkfboutb_unused),
@@ -195,18 +197,21 @@ module gen_clock (
         // Output buffering
         //-----------------------------------
 
-        BUFG clkf_buf (
+        BUFG clkf_buf 
+        (
                 .O (clkfbout_buf_gen_clock),
                 .I (clkfbout_gen_clock)
         );
 
-        BUFGCE clkout1_buf (
+        BUFGCE clkout1_buf 
+        (
                 .O (clk_100MHz),
                 .CE (seq_reg1[7]),
                 .I  (clk_100MHz_gen_clock)
         );
 
-        BUFH clkout1_buf_en (
+        BUFH clkout1_buf_en 
+        (
                 .O (clk_100MHz_gen_clock_en_clk),
                 .I (clk_100MHz_gen_clock)
         );
@@ -219,13 +224,15 @@ module gen_clock (
                 end
         end
 
-        BUFGCE clkout2_buf (       
+        BUFGCE clkout2_buf 
+        (       
                 .O  (clk_50MHz),
                 .CE (seq_reg2[7]),
                 .I  (clk_50MHz_gen_clock)
         );
         
-        BUFH clkout2_buf_en (
+        BUFH clkout2_buf_en 
+        (
                 .O (clk_50MHz_gen_clock_en_clk),
                 .I (clk_50MHz_gen_clock)
         );
