@@ -15,13 +15,16 @@ module uart_monitor (
         input wire clk,
         input wire reset,
 
-        //input wire btn,
+        input wire btn,
         input wire rx, 
         input wire loopback_enable, 
         
         output reg tx, 
         output reg rx_monitor, 
-        output reg tx_monitor
+        output reg tx_monitor,
+
+        output wire [3:0] an,
+        output wire [7:0] seg
         );
 
         wire clk_100MHz,clk_50MHz;
@@ -45,30 +48,54 @@ module uart_monitor (
         );
 
 
-//         wire tx_full, rx_empty, btn_tick;
-//         wire [7:0] rec_data, rec_data1;
+        wire tx_full, rx_empty, btn_tick;
+        wire [7:0] rec_data, rec_data1;
 
-//         uart uart_unit 
-//         (
-//                 .clk (clk_50MHz),
-//                 .reset (rst),
+        wire tx_w;
 
-//                 .rd_uart (btn_tick),
-//                 .wr_uart (btn_tick), 
-//                 .rx (rx), 
-//                 .w_data (rec_data1),
-//                 .tx_full (tx_full), 
-//                 .rx_empty (rx_empty),
-//                 .r_data (rec_data), 
-//                 .tx (tx)
-//         );
+        uart uart_unit 
+        (
+                .clk (clk_50MHz),
+                .reset (rst),
+
+                .rd_uart (btn_tick),
+                .wr_uart (btn_tick), 
+                .rx (rx), 
+                .w_data (rec_data1),
+                .tx_full (tx_full), 
+                .rx_empty (rx_empty),
+                .r_data (rec_data), 
+                .tx (tx_w)
+        );
 
 
-//            debounce btn_db_unit
-//       (.clk(clk_50MHz), .reset(reset), .sw(btn),
-//        .db_level(), .db_tick(btn_tick));
-//         // incremented data loops back
-//         assign rec_data1 = rec_data + 1;
+        debounce btn_db_unit
+        (
+                .clk (clk_50MHz), 
+                .reset (reset), 
+              
+                .sw (btn),
+                .db_level (), 
+                .db_tick (btn_tick)
+        );
+
+        disp_hex_mux disp_cur_prev_data
+        ( 
+                .clk (clk_50MHz), 
+                .reset (reset),
+
+                .hex3 (rec_data[7:4]), 
+                .hex2 (rec_data[3:0]), 
+                .hex1 (rec_data1[7:4]), 
+                .hex0 (rec_data1[3:0]),
+                .dp_in (4'b1011), 
+                .an (an), 
+                .sseg (seg)
+        );
+
+
+        // incremented data loops back
+        assign rec_data1 = rec_data + 1;
 
         always @ (posedge clk_100MHz) begin
                 if (rst) begin 
@@ -79,7 +106,7 @@ module uart_monitor (
                         if (loopback_enable)
                                 tx <= rx;
                         else
-                                tx <= 0;
+                                tx <= tx_w;
                         rx_monitor <= rx;
                         tx_monitor <= tx;    
                         

@@ -32,6 +32,7 @@ proc attach_files {} {
                 rtl/uart_monitor.v        
                 rtl/gen_clock.v        
                 rtl/internal_reset.v        
+                rtl/disp_hex_mux.v        
         }
 
         # sim/draw_rect_ctl_test.v
