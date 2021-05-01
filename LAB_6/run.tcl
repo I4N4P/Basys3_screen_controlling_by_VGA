@@ -77,8 +77,8 @@ if {[lindex $argv 0] == "program"} {
         set fexist [file exist ${bitstream_file}]
         puts "bitstream exist : $fexist"
         # if { $fexist == 0 } {
-        #         make_project
-        #         make_bitstream 
+        make_project
+        make_bitstream 
         # }     
         open_hw
         connect_hw_server
