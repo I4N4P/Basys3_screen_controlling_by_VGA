@@ -16,7 +16,7 @@ module imem
 
 reg [DATA_WIDTH-1:0] ram[0:2**ADDR_WIDTH-1];
 
-initial $readmemh("imem.dat",ram);
+initial $readmemh("imem.dat", ram);
 
 //always @(posedge clk)
 //  if(wen)
