@@ -13,6 +13,9 @@
 ###########################################################################
 #########
 #Source files:
+!*.bin
+!*.dat
+
 #########
 #Do NOT ignore VHDL, Verilog, block diagrams or EDIF files.
 !*.vhd
