@@ -15,14 +15,14 @@ module uC (
                 input wire clk,
                 input wire reset,
 
-                 input wire [4:0] sw,
-                // input wire btPC,
-                // input wire btEX,
+                input wire [3:0] sw,
+                input wire btPC,
+                input wire btEX,
                 //input wire uCrst,
                 input wire rx, 
-                // input wire monRFData_enable, 
-                // input wire monInstr_enable, 
-                // input wire monPC_enable, 
+                input wire monRFData_enable, 
+                input wire monInstr_enable, 
+                input wire monPC_enable, 
                 
                 output reg tx, 
 
@@ -38,14 +38,17 @@ module uC (
         wire tx_full, rx_empty,tx_w;
         wire [7:0] rec_data;
 
-        //wire PCenable,extCtl;
-        //wire [15:0] monPC,monRFData,monInstr;
+        wire PCenable,extCtl;
+        wire [15:0] monPC,monRFData,monInstr;
 
         reg [15:0] reg_out_data,reg_out_data_nxt = 16'b0;
         reg [15:0] uart_data[0:31],uart_data_nxt[0:31];
         reg tick,tick_nxt = 1'b0;
 
         reg [4:0] iterator,iterator_nxt;
+        reg [4:0] iterator2,iterator_nxt2 = 16'b0;
+        reg enable_flash,enable_flash_nxt = 1'b0;
+        reg [7:0] flash_adr,flash_adr_nxt = 8'b0;
         gen_clock my_gen_clock 
         (
                 .clk (clk),
@@ -80,47 +83,47 @@ module uC (
                 .tx (tx_w)
         );
 
-        // micro #(
-        //         .WIDTH (WIDTH),
-        //         .IRAM_ADDR_BITS(IRAM_ADDR_BITS)
-        // ) u_micro (
-        //         .clk (clk_100MHz),
-        //         .reset (rst),
-        //         .iram_wa (),
-        //         .iram_wen (),
-        //         .iram_din (),
-        //         //wire [IRAM_ADDR_BITS-1:0] iram_wa,
-        //         //wire      iram_wen,
-        //         //wire [WIDTH-1:0]   iram_din,
-        //         .PCenable (PCenable),  //program counter enable
-        //         .extCtl (extCtl),      //external program control signal (e.g. button)
-        //         .monRFSrc (sw),  //select register for monitoring
-        //         .monRFData(monRFData), //contents of monitored register
-        //         .monInstr (monInstr),
-        //         .monPC (monPC)
-        // );
+        micro #(
+                .WIDTH (WIDTH),
+                .IRAM_ADDR_BITS(IRAM_ADDR_BITS)
+        ) u_micro (
+                .clk (clk_100MHz),
+                .reset (rst),
+                .iram_wa (flash_adr),
+                .iram_wen (enable_flash),
+                .iram_din (uart_data[iterator2]),
+                //wire [IRAM_ADDR_BITS-1:0] iram_wa,
+                //wire      iram_wen,
+                //wire [WIDTH-1:0]   iram_din,
+                .PCenable (PCenable),  //program counter enable
+                .extCtl (extCtl),      //external program control signal (e.g. button)
+                .monRFSrc (sw),  //select register for monitoring
+                .monRFData(monRFData), //contents of monitored register
+                .monInstr (monInstr),
+                .monPC (monPC)
+        );
 
-        // debounce PC_Inc_Button
-        // (
-        //         .clk (clk_100MHz), 
-        //         .reset (rst), 
+        debounce PC_Inc_Button
+        (
+                .clk (clk_100MHz), 
+                .reset (rst), 
 
-        //         .sw (btPC),
+                .sw (btPC),
 
-        //         .db_level (), 
-        //         .db_tick (PCenable)
-        // );
+                .db_level (), 
+                .db_tick (PCenable)
+        );
 
-        // debounce EXCtl_Button
-        // (
-        //         .clk (clk_100MHz), 
-        //         .reset (rst), 
+        debounce EXCtl_Button
+        (
+                .clk (clk_100MHz), 
+                .reset (rst), 
               
-        //         .sw (btEX),
+                .sw (btEX),
 
-        //         .db_level (extCtl), 
-        //         .db_tick ()
-        // );
+                .db_level (extCtl), 
+                .db_tick ()
+        );
 
         disp_hex_mux reg_data_disp_hex
         ( 
@@ -128,10 +131,10 @@ module uC (
                 .reset (rst),
 
                 //.hex3 (uart_data[sw][15:12]), 
-                .hex3 (uart_data[sw][15:12]), 
-                .hex2 (uart_data[sw][11:8]), 
-                .hex1 (uart_data[sw][7:4]), 
-                .hex0 (uart_data[sw][3:0]),
+                .hex3 (reg_out_data[15:12]), 
+                .hex2 (reg_out_data[11:8]), 
+                .hex1 (reg_out_data[7:4]), 
+                .hex0 (reg_out_data[3:0]),
                 .dp_in (4'b1111),
 
                 .an (an), 
@@ -140,6 +143,7 @@ module uC (
 localparam COUNT = 10 ;
 reg [3:0] counter,counter_nxt;
 reg [1:0] flag,flag_nxt;
+
         // display and send ASCII synchronical logic
 integer i;
         always @ (posedge clk_100MHz) begin
@@ -151,6 +155,9 @@ integer i;
                         counter <= 4'b0;
                         flag  <= 1'b0;
                         iterator <= 5'b0;
+                        iterator2 <= 5'b0;
+                        enable_flash <= 1'b0;
+                        flash_adr <= 8'b0;
                 end else begin
                         reg_out_data <= reg_out_data_nxt;
                         uart_data[iterator] <= uart_data_nxt[iterator];
@@ -158,6 +165,10 @@ integer i;
                         counter <= counter_nxt;
                         flag  <= flag_nxt;
                         iterator <= iterator_nxt;
+                        enable_flash <= enable_flash_nxt;
+                        iterator2 <= iterator_nxt2;
+                        flash_adr <= flash_adr_nxt;
+                        
                 end      
         end
 
@@ -186,10 +197,16 @@ integer i;
                         end else begin
                                 uart_data_nxt[iterator] = uart_data[iterator];
                                 counter_nxt = counter + 1;
-                                
-                                
                         end
-                        
+                end else if ((rx_empty == 1) && (iterator == 24) && (iterator2 <= 24) ) begin
+                        enable_flash_nxt <= 1'b1;
+                        if(enable_flash) begin
+                                flash_adr_nxt = flash_adr + 1;
+                                iterator_nxt2 <= iterator2 + 1;
+                        end else begin
+                                flash_adr_nxt = flash_adr;
+                                iterator_nxt2 <= iterator2;
+                        end
                 end else begin
                         uart_data_nxt[iterator] = uart_data[iterator];
                         counter_nxt = 4'b0;
@@ -197,13 +214,13 @@ integer i;
         end
 
 
-        // always @ * begin
-        //        case ({monRFData_enable,monInstr_enable,monPC_enable}) 
-        //        3'b001: reg_out_data_nxt = monPC;
-        //        3'b010: reg_out_data_nxt = monInstr;
-        //        3'b100: reg_out_data_nxt = monRFData;
-        //        default : reg_out_data_nxt = 8'b0;
-        //        endcase
-        // end
+        always @ * begin
+               case ({monRFData_enable,monInstr_enable,monPC_enable}) 
+               3'b001: reg_out_data_nxt = monPC;
+               3'b010: reg_out_data_nxt = monInstr;
+               3'b100: reg_out_data_nxt = monRFData;
+               default: reg_out_data_nxt = 8'b0;
+               endcase
+        end
 
 endmodule
