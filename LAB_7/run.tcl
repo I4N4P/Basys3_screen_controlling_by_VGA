@@ -61,6 +61,12 @@ read_verilog {
                 rtl/internal_reset.v
                 rtl/debounce.v
                 rtl/disp_hex_mux.v
+                rtl/fifo.v
+                rtl/flag_buf.v
+                rtl/mod_m_counter.v
+                rtl/uart_rx.v
+                rtl/uart_tx.v
+                rtl/uart.v     
 }
 
 read_mem {

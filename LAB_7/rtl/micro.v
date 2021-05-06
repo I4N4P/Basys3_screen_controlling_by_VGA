@@ -7,9 +7,9 @@ module micro
 (
     input  wire                        clk,
     input  wire                        reset,
-//wire [IRAM_ADDR_BITS-1:0] iram_wa,
-//wire      iram_wen,
-//wire [WIDTH-1:0]   iram_din,
+    input wire [IRAM_ADDR_BITS-1:0] iram_wa,
+    input wire      iram_wen,
+    input wire [WIDTH-1:0]   iram_din,
     input  wire                        PCenable,  // program counter enable
     input  wire                        extCtl,    // external program control signal (e.g. button)
     input  wire [3:0]                  monRFSrc,  // select register for monitoring
@@ -68,9 +68,9 @@ imem #(
 ) u_imem (
     .clk(clk),
     .ra (PC),   //read address
-// .wa (iram_wa), //write address
-// .wen(iram_wen), //write enable
-// .wd (iram_din), //write data
+        .wa (iram_wa), //write address
+        .wen(iram_wen), //write enable
+        .wd (iram_din), //write data
     .rd (Instr) //read data
 );
 
