@@ -59,6 +59,9 @@ set_property PACKAGE_PIN V16 [get_ports monInstr_enable]
 set_property PACKAGE_PIN W16 [get_ports monPC_enable]						
 	set_property IOSTANDARD LVCMOS33 [get_ports monPC_enable]
 
+set_property PACKAGE_PIN W17 [get_ports PCenable_auto]					
+	set_property IOSTANDARD LVCMOS33 [get_ports PCenable_auto]
+
 set_property PACKAGE_PIN W15 [get_ports {sw[0]}]					
 	set_property IOSTANDARD LVCMOS33 [get_ports {sw[0]}]
 set_property PACKAGE_PIN V15 [get_ports {sw[1]}]					
