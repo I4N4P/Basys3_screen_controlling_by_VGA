@@ -23,8 +23,9 @@ module uC (
                 input wire monRFData_enable, 
                 input wire monInstr_enable, 
                 input wire monPC_enable, 
+                input wire PCenable_auto, 
                 
-                output reg tx, 
+                output wire tx, 
 
                 output wire [3:0] an,
                 output wire [7:0] seg
@@ -35,11 +36,13 @@ module uC (
         wire clk_100MHz,clk_50MHz;
         wire rst,locked;
 
-        wire tx_full, rx_empty,tx_w;
+        wire tx_full, rx_empty;
         wire [7:0] rec_data;
 
-        wire PCenable,extCtl;
+        wire PCenable_nxt,extCtl;
         wire [15:0] monPC,monRFData,monInstr;
+        
+        reg PCenable;
 
         reg [15:0] reg_out_data,reg_out_data_nxt = 16'b0;
         reg [15:0] uart_data[0:31],uart_data_nxt[0:31];
@@ -73,14 +76,14 @@ module uC (
                 .reset (rst),
 
                 .rd_uart (tick),
-                .wr_uart (btn_tick), 
+                .wr_uart (1'b0), 
                 .rx (rx), 
-                .w_data (uart_data[iterator][7:0]),
+                .w_data (8'b0),
 
                 .tx_full (tx_full), 
                 .rx_empty (rx_empty),
                 .r_data (rec_data), 
-                .tx (tx_w)
+                .tx (tx)
         );
 
         micro #(
@@ -92,9 +95,6 @@ module uC (
                 .iram_wa (flash_adr),
                 .iram_wen (enable_flash),
                 .iram_din (uart_data[iterator2]),
-                //wire [IRAM_ADDR_BITS-1:0] iram_wa,
-                //wire      iram_wen,
-                //wire [WIDTH-1:0]   iram_din,
                 .PCenable (PCenable),  //program counter enable
                 .extCtl (extCtl),      //external program control signal (e.g. button)
                 .monRFSrc (sw),  //select register for monitoring
@@ -111,7 +111,7 @@ module uC (
                 .sw (btPC),
 
                 .db_level (), 
-                .db_tick (PCenable)
+                .db_tick (PCenable_nxt)
         );
 
         debounce EXCtl_Button
@@ -147,6 +147,15 @@ reg [1:0] flag,flag_nxt;
         // display and send ASCII synchronical logic
 integer i;
         always @ (posedge clk_100MHz) begin
+                if (PCenable_auto)
+                        PCenable <= 1'b1 ;
+                else
+                        PCenable <= PCenable_nxt;
+                
+        end
+
+
+        always @ (posedge clk_100MHz) begin
                 if (rst) begin 
                         reg_out_data <= 8'b0;
                         for (i = 0; i < 32; i = i + 1)
@@ -178,6 +187,10 @@ integer i;
                 iterator_nxt = iterator;
                 flag_nxt = flag;
                 tick_nxt = 1'b0;
+                enable_flash_nxt = enable_flash;
+                counter_nxt = counter;
+                flash_adr_nxt = flash_adr;
+                iterator_nxt2 = iterator2;
                 for (i = 0; i < 32; i = i + 1)
                         uart_data_nxt[i] = uart_data[i];
                 if (rx_empty == 0) begin
@@ -198,14 +211,14 @@ integer i;
                                 uart_data_nxt[iterator] = uart_data[iterator];
                                 counter_nxt = counter + 1;
                         end
-                end else if ((rx_empty == 1) && (iterator == 24) && (iterator2 <= 24) ) begin
+                end else if ((rx_empty == 1) && (iterator == 25) && (iterator2 <= 25) ) begin
                         enable_flash_nxt <= 1'b1;
                         if(enable_flash) begin
                                 flash_adr_nxt = flash_adr + 1;
-                                iterator_nxt2 <= iterator2 + 1;
+                                iterator_nxt2 = iterator2 + 1;
                         end else begin
                                 flash_adr_nxt = flash_adr;
-                                iterator_nxt2 <= iterator2;
+                                iterator_nxt2 = iterator2;
                         end
                 end else begin
                         uart_data_nxt[iterator] = uart_data[iterator];
@@ -216,9 +229,9 @@ integer i;
 
         always @ * begin
                case ({monRFData_enable,monInstr_enable,monPC_enable}) 
-               3'b001: reg_out_data_nxt = monPC;
-               3'b010: reg_out_data_nxt = monInstr;
-               3'b100: reg_out_data_nxt = monRFData;
+               3'b001:  reg_out_data_nxt = monPC;
+               3'b010:  reg_out_data_nxt = monInstr;
+               3'b100:  reg_out_data_nxt = monRFData;
                default: reg_out_data_nxt = 8'b0;
                endcase
         end
