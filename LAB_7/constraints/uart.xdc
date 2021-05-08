@@ -40,7 +40,9 @@ set_property PACKAGE_PIN V4 [get_ports {an[2]}]
 	set_property IOSTANDARD LVCMOS33 [get_ports {an[2]}]
 set_property PACKAGE_PIN W4 [get_ports {an[3]}]					
 	set_property IOSTANDARD LVCMOS33 [get_ports {an[3]}]
-
+        
+set_property PACKAGE_PIN U16 [get_ports {led}]					
+	set_property IOSTANDARD LVCMOS33 [get_ports {led}]
 
 # # Buttons
 set_property PACKAGE_PIN U18 [get_ports {reset}]

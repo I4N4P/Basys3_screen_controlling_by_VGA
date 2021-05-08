@@ -26,6 +26,7 @@ module uC (
                 input wire PCenable_auto, 
                 
                 output wire tx, 
+                output wire led, 
 
                 output wire [3:0] an,
                 output wire [7:0] seg
@@ -103,6 +104,7 @@ module uC (
                 .monPC (monPC)
         );
 
+        assign led = monRFData[0];
         debounce PC_Inc_Button
         (
                 .clk (clk_100MHz), 
