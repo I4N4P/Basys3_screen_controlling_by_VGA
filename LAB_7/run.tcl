@@ -89,7 +89,7 @@ if {[lindex $argv 0] == "simulation"} {
 #     exit
     start_gui
     
-    run all
+    #run all
 } else {
     launch_runs synth_1 -jobs 8
     wait_on_run synth_1
@@ -97,10 +97,10 @@ if {[lindex $argv 0] == "simulation"} {
     launch_runs impl_1 -to_step write_bitstream -jobs 8
     wait_on_run impl_1
     
-        # start_gui
-        # synth_design -rtl -name rtl_1 
-        # show_schematic [concat [get_cells] [get_ports]]
-        # write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
+        start_gui
+        synth_design -rtl -name rtl_1 
+        show_schematic [concat [get_cells] [get_ports]]
+        write_schematic -force -format pdf rtl_schematic.pdf -orientation landscape -scope visible
     
-#     exit
+    exit
 }

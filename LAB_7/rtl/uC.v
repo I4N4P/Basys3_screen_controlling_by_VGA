@@ -33,6 +33,9 @@ module uC (
         );
         localparam WIDTH          = 16;
         localparam IRAM_ADDR_BITS = 8;
+        localparam COUNT = 10 ;
+
+        integer i;
 
         wire clk_100MHz,clk_50MHz;
         wire rst,locked;
@@ -42,8 +45,11 @@ module uC (
 
         wire PCenable_nxt,extCtl;
         wire [15:0] monPC,monRFData,monInstr;
-        
+
         reg PCenable;
+
+        reg [3:0] counter,counter_nxt;
+        reg [1:0] flag,flag_nxt;
 
         reg [15:0] reg_out_data,reg_out_data_nxt = 16'b0;
         reg [15:0] uart_data[0:31],uart_data_nxt[0:31];
@@ -53,6 +59,7 @@ module uC (
         reg [4:0] iterator2,iterator_nxt2 = 16'b0;
         reg enable_flash,enable_flash_nxt = 1'b0;
         reg [7:0] flash_adr,flash_adr_nxt = 8'b0;
+
         gen_clock my_gen_clock 
         (
                 .clk (clk),
@@ -77,7 +84,7 @@ module uC (
                 .reset (rst),
 
                 .rd_uart (tick),
-                .wr_uart (1'b0), 
+                .wr_uart (tick), 
                 .rx (rx), 
                 .w_data (8'b0),
 
@@ -104,7 +111,6 @@ module uC (
                 .monPC (monPC)
         );
 
-        assign led = monRFData[0];
         debounce PC_Inc_Button
         (
                 .clk (clk_100MHz), 
@@ -132,7 +138,6 @@ module uC (
                 .clk (clk_100MHz), 
                 .reset (rst),
 
-                //.hex3 (uart_data[sw][15:12]), 
                 .hex3 (reg_out_data[15:12]), 
                 .hex2 (reg_out_data[11:8]), 
                 .hex1 (reg_out_data[7:4]), 
@@ -142,12 +147,7 @@ module uC (
                 .an (an), 
                 .sseg (seg)
         );
-localparam COUNT = 10 ;
-reg [3:0] counter,counter_nxt;
-reg [1:0] flag,flag_nxt;
 
-        // display and send ASCII synchronical logic
-integer i;
         always @ (posedge clk_100MHz) begin
                 if (PCenable_auto)
                         PCenable <= 1'b1 ;
@@ -155,7 +155,6 @@ integer i;
                         PCenable <= PCenable_nxt;
                 
         end
-
 
         always @ (posedge clk_100MHz) begin
                 if (rst) begin 
@@ -179,12 +178,10 @@ integer i;
                         enable_flash <= enable_flash_nxt;
                         iterator2 <= iterator_nxt2;
                         flash_adr <= flash_adr_nxt;
-                        
                 end      
         end
 
-        // display and send ASCII combinational logic
-
+                // copy data from uart to immem          
         always @ * begin
                 iterator_nxt = iterator;
                 flag_nxt = flag;
@@ -213,7 +210,7 @@ integer i;
                                 uart_data_nxt[iterator] = uart_data[iterator];
                                 counter_nxt = counter + 1;
                         end
-                end else if ((rx_empty == 1) && (iterator == 25) && (iterator2 <= 25) ) begin
+                end else if ((rx_empty == 1) && (iterator == 25) && (iterator2 <= 25) ) begin   // i am aware about some problems connected with this, yet this is not a commercial project
                         enable_flash_nxt <= 1'b1;
                         if(enable_flash) begin
                                 flash_adr_nxt = flash_adr + 1;
@@ -228,7 +225,7 @@ integer i;
                 end 
         end
 
-
+                // dispaly data on LCD          
         always @ * begin
                case ({monRFData_enable,monInstr_enable,monPC_enable}) 
                3'b001:  reg_out_data_nxt = monPC;
@@ -237,5 +234,5 @@ integer i;
                default: reg_out_data_nxt = 8'b0;
                endcase
         end
-
+        assign led = monRFData[0];
 endmodule
